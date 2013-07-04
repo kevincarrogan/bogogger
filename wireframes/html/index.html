@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>Gamelog</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width">
+
+        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+        <link rel="stylesheet" href="css/normalize.css">
+        <link rel="stylesheet" href="css/main.css">
+        <script src="js/vendor/modernizr-2.6.2.min.js"></script>
+    </head>
+    <body>
+
+        <header>
+            <h1>Gamelog</h1>
+
+            <nav>
+                <ul>
+                    <li><a href="index.html">Dashboard</a></li>
+                    <li><a href="recent-games.html">Recent Games</a></li>
+                    <li><a href="groups.html">Groups</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main>
+            <h1>Dashboard</h1>
+            <section class="recent-games">
+                <h1>Recent Games</h1>
+                <nav>
+                    <a href="new-game.html">Add New Game</a>
+                </nav>
+
+                <article class="played-game">
+                    <header>
+                        <h1><a href="game.html">7 Wonders</a></h1>
+                        <p>Played - <time>Wednesday, 3rd November 2013</time></p>
+                        <p>Group - <a href="group.html">My gaming group</a></p>
+                    </header>
+                    <section class="standings">
+                        <ol>
+                            <li class="first-place"><a href="user.html">Player One</a> - 50pts</li>
+                            <li class="second-place tied"><a href="user.html">Player Two</a> - 49pt</li>
+                            <li class="second-place tied"><a href="user.html">Player Three</a> - 49pts</li>
+                            <li class="fourth-place"><a href="user.html">Player Four</a> - 4pts</li>
+                        </ol>
+                    </section>
+                    <section class="summary">
+                        <p>First win for <a href="user.html">Player One</a> at <a href="game.html">7 Wonders</a>.</p>
+                        <p><a href="user.html">Player Two</a> has moved up rank in <a href="group.html">My gaming group</a>.</p>
+                    </section>
+                    <section class="comments">
+                        <article>
+                            <header>
+                                <div class="author">
+                                    <a href="user.html">Player Four</a>
+                                </div>
+                            </header>
+                            <p>This game sucked.</p>
+                            <p>Player Two cheated as per usual.</p>
+                        </article>
+                    </section>
+                </article>
+            </section>
+
+            <section class="groups">
+                <h1>Groups</h1>
+                <article class="group">
+                    <h1><a href="group.html">My gaming group</a></h1>
+                    <section class="members">
+                        <ul>
+                            <li class="vcard">
+                                <img src="/static/images/p1.png" />
+                                <span class="fn">Player One</span>
+                            </li>
+                            <li class="vcard">
+                                <img src="/static/images/p2.png" />
+                                <span class="fn">Player Two</span>
+                            </li>
+                            <li class="vcard">
+                                <img src="/static/images/p3.png" />
+                                <span class="fn">Player Three</span>
+                            </li>
+                            <li class="vcard">
+                                <img src="/static/images/p4.png" />
+                                <span class="fn">Player Four</span>
+                            </li>
+                        </ul>
+                    </section>
+                    <section class="last-played">
+                        <header>
+                            <h1><a href="game.html">7 Wonders</a></h1>
+                            <p>Played - <time>Wednesday 5th November 2013</time></p>
+                        </header>
+                        <div class="standings">
+                            <h2>Standings</h2>
+                            <section class="standings">
+                                <ol>
+                                    <li class="first-place"><a href="user.html">Player One</a> - 50pts</li>
+                                    <li class="second-place tied"><a href="user.html">Player Two</a> - 49pt</li>
+                                    <li class="second-place tied"><a href="user.html">Player Three</a> - 49pts</li>
+                                    <li class="fourth-place"><a href="user.html">Player Four</a> - 4pts</li>
+                                </ol>
+                            </section>
+                        </div>
+                    </section>
+                </article>
+            </section>
+        </main>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-2.0.2.min.js"><\/script>')</script>
+        <script src="js/plugins.js"></script>
+        <script src="js/main.js"></script>
+    </body>
+</html>
