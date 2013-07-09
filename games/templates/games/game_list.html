@@ -7,12 +7,20 @@
     <thead>
         <tr>
             <th>Name</th>
+            <th>Players</th>
         </tr>
     </thead>
     <tbody>
     {% for game in game_list %}
         <tr>
             <td><a href="{% url 'game_detail' slug=game.slug %}">{{ game.name }}</a></td>
+            <td>
+                {% if game.min_players == game.max_players %}
+                    {{ game.min_players }}
+                {% else %}
+                    {{ game.min_players }} - {{ game.max_players }}
+                {% endif %}
+            </td>
         </tr>
     {% empty %}
         <tr>
