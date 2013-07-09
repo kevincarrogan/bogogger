@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block body_class %}game-create{% endblock %}
+
+{% block content %}
+<h1>Create Game</h1>
+
+<form class="base-form" method="POST">
+    {% csrf_token %}
+    {% for field in form.visible_fields %}
+    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+    {{ field }}
+    {% endfor %}
+
+    <div class="actions">
+        <button type="submit">Create New Game</button>
+    </div>
+</form>
+{% endblock %}
