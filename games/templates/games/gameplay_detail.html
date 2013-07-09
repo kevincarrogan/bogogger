@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Play of <a href="{% url 'game_detail' slug=gameplay.game.slug %}">{{ gameplay.game }}</a></h1>
+
+<ul>
+    {% for player in gameplay.players.all %}
+    <li>
+        <a href="{% url 'player_detail' pk=player.pk %}">
+            {{ player }}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

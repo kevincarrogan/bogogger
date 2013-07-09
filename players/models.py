@@ -26,3 +26,6 @@ class Player(models.Model):
     @property
     def last_name(self):
         return self.get_from_self_or_user('last_name')
+
+    def __unicode__(self):
+        return '%s %s' % (self.first_name, self.last_name)

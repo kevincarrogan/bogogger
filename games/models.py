@@ -20,3 +20,6 @@ class Game(models.Model):
 class GamePlay(models.Model):
     game = models.ForeignKey(Game)
     players = models.ManyToManyField(Player)
+
+    def get_absolute_url(self):
+        return reverse('game_play_detail', args=(), kwargs={'pk': self.pk})

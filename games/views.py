@@ -19,3 +19,7 @@ class GameListView(ListView):
 
 class GamePlayCreateView(CreateView):
     model = GamePlay
+
+
+class GamePlayDetailView(DetailView):
+    model = GamePlay
