@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Games</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for game in game_list %}
+        <tr>
+            <td><a href="{% url 'game_detail' slug=game.slug %}">{{ game.name }}</a></td>
+        </tr>
+    {% empty %}
+        <tr>
+            <td><em>There are no games. Why don't you <a href="{% url 'game_create' %}">add one</a>?</em></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}

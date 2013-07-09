@@ -4,6 +4,7 @@ from . import views
 
 
 urlpatterns = patterns('',
-    url(r'create/$', views.GameCreateView.as_view(), name='game_create'),
-    url(r'(?P<slug>.+)/$', views.GameDetailView.as_view(), name='game_detail'),
+    url(r'^$', views.GameListView.as_view(), name='game_list'),
+    url(r'^create/$', views.GameCreateView.as_view(), name='game_create'),
+    url(r'^(?P<slug>.+)/$', views.GameDetailView.as_view(), name='game_detail'),
 )
