@@ -2,4 +2,15 @@
 
 {% block content %}
 <h1>{{ game.name }}</h1>
+
+<dl>
+    <dt>Players</dt>
+    <dd>
+        {% if game.min_players == game.max_players %}
+            {{ game.min_players }}
+        {% else %}
+            {{ game.min_players }} - {{ game.max_players }}
+        {% endif %}
+    </dd>
+</dl>
 {% endblock %}
