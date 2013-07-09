@@ -1,7 +1,12 @@
 from django.views.generic.edit import CreateView
+from django.views.generic.detail import DetailView
 
 from .models import Player
 
 
-class CreatePlayerView(CreateView):
+class PlayerCreateView(CreateView):
+    model = Player
+
+
+class PlayerDetailView(DetailView):
     model = Player
