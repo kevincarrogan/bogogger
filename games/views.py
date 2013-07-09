@@ -1,7 +1,7 @@
 from django.views.generic.edit import CreateView
 from django.views.generic.detail import DetailView
 
-from .models import Game, GamePlay
+from .models import Game
 
 
 class GameCreateView(CreateView):
@@ -10,7 +10,3 @@ class GameCreateView(CreateView):
 
 class GameDetailView(DetailView):
     model = Game
-
-
-class GamePlayCreateView(CreateView):
-    model = GamePlay
