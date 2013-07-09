@@ -13,6 +13,9 @@ class Game(models.Model):
     def get_absolute_url(self):
         return reverse('game_detail', args=(), kwargs={'slug': self.slug})
 
+    def __unicode__(self):
+        return self.name
+
 
 class GamePlay(models.Model):
     game = models.ForeignKey(Game)
