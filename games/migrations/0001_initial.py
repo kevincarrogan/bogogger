@@ -12,7 +12,7 @@ class Migration(SchemaMigration):
         db.create_table(u'games_game', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('name', self.gf('django.db.models.fields.CharField')(max_length=255)),
-            ('slug', self.gf('django.db.models.fields.CharField')(max_length=255)),
+            ('slug', self.gf('autoslug.fields.AutoSlugField')(unique_with=(), max_length=50, populate_from='name')),
             ('min_players', self.gf('django.db.models.fields.PositiveIntegerField')()),
             ('max_players', self.gf('django.db.models.fields.PositiveIntegerField')()),
         ))
@@ -22,17 +22,18 @@ class Migration(SchemaMigration):
         db.create_table(u'games_gameplay', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('game', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['games.Game'])),
+            ('played_at', self.gf('django.db.models.fields.DateTimeField')()),
         ))
         db.send_create_signal(u'games', ['GamePlay'])
 
-        # Adding M2M table for field players on 'GamePlay'
-        m2m_table_name = db.shorten_name(u'games_gameplay_players')
-        db.create_table(m2m_table_name, (
-            ('id', models.AutoField(verbose_name='ID', primary_key=True, auto_created=True)),
-            ('gameplay', models.ForeignKey(orm[u'games.gameplay'], null=False)),
-            ('player', models.ForeignKey(orm[u'players.player'], null=False))
+        # Adding model 'PlayerRank'
+        db.create_table(u'games_playerrank', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('player', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['players.Player'])),
+            ('game_play', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['games.GamePlay'])),
+            ('rank', self.gf('django.db.models.fields.PositiveIntegerField')(null=True, blank=True)),
         ))
-        db.create_unique(m2m_table_name, ['gameplay_id', 'player_id'])
+        db.send_create_signal(u'games', ['PlayerRank'])
 
 
     def backwards(self, orm):
@@ -42,8 +43,8 @@ class Migration(SchemaMigration):
         # Deleting model 'GamePlay'
         db.delete_table(u'games_gameplay')
 
-        # Removing M2M table for field players on 'GamePlay'
-        db.delete_table(db.shorten_name(u'games_gameplay_players'))
+        # Deleting model 'PlayerRank'
+        db.delete_table(u'games_playerrank')
 
 
     models = {
@@ -89,19 +90,28 @@ class Migration(SchemaMigration):
             'max_players': ('django.db.models.fields.PositiveIntegerField', [], {}),
             'min_players': ('django.db.models.fields.PositiveIntegerField', [], {}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'slug': ('django.db.models.fields.CharField', [], {'max_length': '255'})
+            'slug': ('autoslug.fields.AutoSlugField', [], {'unique_with': '()', 'max_length': '50', 'populate_from': "'name'"})
         },
         u'games.gameplay': {
             'Meta': {'object_name': 'GamePlay'},
             'game': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['games.Game']"}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'players': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['players.Player']", 'symmetrical': 'False'})
+            'played_at': ('django.db.models.fields.DateTimeField', [], {}),
+            'players': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['players.Player']", 'through': u"orm['games.PlayerRank']", 'symmetrical': 'False'})
+        },
+        u'games.playerrank': {
+            'Meta': {'object_name': 'PlayerRank'},
+            'game_play': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['games.GamePlay']"}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'player': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['players.Player']"}),
+            'rank': ('django.db.models.fields.PositiveIntegerField', [], {'null': 'True', 'blank': 'True'})
         },
         u'players.player': {
             'Meta': {'object_name': 'Player'},
             '_first_name': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
             '_last_name': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'slug': ('autoslug.fields.AutoSlugField', [], {'unique_with': '()', 'max_length': '50', 'populate_from': 'None'}),
             'user': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['auth.User']", 'null': 'True', 'blank': 'True'})
         }
     }

@@ -1,12 +1,14 @@
 from django.db import models
 from django.core.urlresolvers import reverse
 
+from autoslug import AutoSlugField
+
 from players.models import Player
 
 
 class Game(models.Model):
     name = models.CharField(max_length=255)
-    slug = models.CharField(max_length=255)
+    slug = AutoSlugField(populate_from='name')
     min_players = models.PositiveIntegerField()
     max_players = models.PositiveIntegerField()
 
@@ -20,7 +22,7 @@ class Game(models.Model):
 class GamePlay(models.Model):
     game = models.ForeignKey(Game)
     players = models.ManyToManyField(Player, through='PlayerRank')
-    played_at = models.DateTimeField(blank=True, null=True)
+    played_at = models.DateTimeField()
 
     def get_absolute_url(self):
         return reverse('game_play_detail', args=(), kwargs={'pk': self.pk})

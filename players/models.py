@@ -2,16 +2,21 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
 
+from autoslug import AutoSlugField
+
 
 class Player(models.Model):
     user = models.ForeignKey(get_user_model(), blank=True, null=True)
+    slug = AutoSlugField(
+        populate_from=lambda instance: '%s %s' % (instance.first_name, instance.last_name)
+    )
 
     # Fields if this isn't tied to a user
     _first_name = models.CharField(max_length=255, blank=True, null=True)
     _last_name = models.CharField(max_length=255, blank=True, null=True)
 
     def get_absolute_url(self):
-        return reverse('player_detail', args=(), kwargs={'pk': self.pk})
+        return reverse('player_detail', args=(), kwargs={'slug': self.slug})
 
     def get_from_self_or_user(self, field_name):
         if self.user:
