@@ -25,6 +25,9 @@ class GamePlay(models.Model):
     def get_absolute_url(self):
         return reverse('game_play_detail', args=(), kwargs={'pk': self.pk})
 
+    def __unicode__(self):
+        return '%s - %s' % (self.game, ', '.join('%s' % player for player in self.players.all()))
+
 
 class PlayerRank(models.Model):
     player = models.ForeignKey(Player)
