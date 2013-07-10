@@ -26,7 +26,7 @@ class GamePlay(models.Model):
         return reverse('game_play_detail', args=(), kwargs={'pk': self.pk})
 
     def __unicode__(self):
-        return '%s - %s' % (self.game, ', '.join('%s' % player for player in self.players.all()))
+        return '%s - [%s]' % (self.game, ', '.join('%s' % player for player in self.players.all()))
 
 
 class PlayerRank(models.Model):
@@ -34,3 +34,6 @@ class PlayerRank(models.Model):
     game_play = models.ForeignKey(GamePlay)
 
     rank = models.PositiveIntegerField(null=True, blank=True)
+
+    def __unicode__(self):
+        return '%s. %s (%s)' % (self.rank, self.player, self.game_play)
