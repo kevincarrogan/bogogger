@@ -3,6 +3,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 
 from .models import Game, GamePlay
+from .forms import GamePlayForm
 
 
 class GameCreateView(CreateView):
@@ -19,6 +20,7 @@ class GameListView(ListView):
 
 class GamePlayCreateView(CreateView):
     model = GamePlay
+    form_class = GamePlayForm
 
 
 class GamePlayDetailView(DetailView):
