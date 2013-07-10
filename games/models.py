@@ -19,7 +19,14 @@ class Game(models.Model):
 
 class GamePlay(models.Model):
     game = models.ForeignKey(Game)
-    players = models.ManyToManyField(Player)
+    players = models.ManyToManyField(Player, through='PlayerRank')
 
     def get_absolute_url(self):
         return reverse('game_play_detail', args=(), kwargs={'pk': self.pk})
+
+
+class PlayerRank(models.Model):
+    player = models.ForeignKey(Player)
+    game_play = models.ForeignKey(GamePlay)
+
+    rank = models.PositiveIntegerField(null=True, blank=True)
