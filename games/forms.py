@@ -16,6 +16,4 @@ class GamePlayForm(forms.ModelForm):
         for player in players:
             PlayerRank.objects.create(game_play=game_play, player=player)
 
-        import ipdb; ipdb.set_trace()
-
         return game_play
