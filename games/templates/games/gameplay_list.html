@@ -21,7 +21,7 @@
                 <ul>
                     {% for player in gameplay.players.all %}
                     <li>
-                        <a href="{% url 'player_detail' pk=player.pk %}">
+                        <a href="{% url 'player_detail' slug=player.slug %}">
                             {{ player }}
                         </a>
                     </li>
