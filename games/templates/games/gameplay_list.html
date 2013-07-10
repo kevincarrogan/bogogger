@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<table>
+    <thead>
+        <tr>
+            <th>Game</th>
+            <th>Players</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for gameplay in gameplay_list %}
+        <tr>
+            <td>
+                <a href="{% url 'game_detail' slug=gameplay.game.slug %}">
+                    {{ gameplay.game }}
+                </a>
+            </td>
+            <td>
+                <ul>
+                    {% for player in gameplay.players.all %}
+                    <li>
+                        <a href="{% url 'player_detail' pk=player.pk %}">
+                            {{ player }}
+                        </a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td>
+                <em>There are no game plays logged. Why don't you <a href="{% url 'gameplay_create' %}">add one</a>?</em>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
