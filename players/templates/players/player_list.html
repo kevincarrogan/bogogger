@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Players</h1>
+
+<table>
+    <thead>
+        <tr>Name</tr>
+    </thead>
+    <tbody>
+        {% for player in player_list %}
+        <tr>
+            <td>{{ player }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
