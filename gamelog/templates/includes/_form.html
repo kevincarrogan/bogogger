@@ -1,9 +1,7 @@
 <form class="base-form" method="POST">
     {% csrf_token %}
-    {% for field in form.visible_fields %}
-    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-    {{ field }}
-    {% endfor %}
+    
+    {% include 'includes/_fieldset.html' %}
 
     <div class="actions">
         <button type="submit">Create New</button>
