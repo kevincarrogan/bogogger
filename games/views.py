@@ -29,7 +29,12 @@ class GamePlayCreateView(TemplateView):
     def get_formset(self, instance=None, data=None):
         player_count = Player.objects.count()
 
-        formset = inlineformset_factory(GamePlay, PlayerRank, extra=player_count, can_delete=False)
+        formset = inlineformset_factory(
+            GamePlay,
+            PlayerRank,
+            extra=player_count,
+            can_delete=False,
+        )
 
         args = ()
         kwargs = {}
