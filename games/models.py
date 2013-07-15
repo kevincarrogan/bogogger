@@ -11,6 +11,7 @@ class Game(models.Model):
     slug = AutoSlugField(populate_from='name')
     min_players = models.PositiveIntegerField()
     max_players = models.PositiveIntegerField()
+    is_coop = models.BooleanField(default=False, verbose_name="Co-operative")
 
     def get_absolute_url(self):
         return reverse('game_detail', args=(), kwargs={'slug': self.slug})
