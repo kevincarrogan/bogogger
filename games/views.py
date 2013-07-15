@@ -67,14 +67,20 @@ class GamePlayCreateView(TemplateView):
 
             return redirect('game_play_detail', pk=game_play.pk)
 
-        return super(GamePlayCreateView, self).post(request)
+        return self.render_to_response(self.get_context_data(form=game_play_form, formset=game_play_formset))
 
-    def get_context_data(self):
+    def get_context_data(self, form=None, formset=None):
         ctx = super(GamePlayCreateView, self).get_context_data()
 
+        if not form:
+            form = self.get_form()
+
+        if not formset:
+            formset = self.get_formset()
+
         ctx.update({
-            'game_play_form': self.get_form(),
-            'game_play_formset': self.get_formset(),
+            'game_play_form': form,
+            'game_play_formset': formset,
         })
 
         return ctx
