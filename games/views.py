@@ -8,7 +8,7 @@ from django.shortcuts import redirect
 from players.models import Player
 
 from .models import Game, GamePlay, PlayerRank
-from .forms import GamePlayForm, GamePlayFromGameForm
+from .forms import GamePlayForm, GamePlayFromGameForm, PlayerRankForm
 
 
 class GameCreateView(CreateView):
@@ -32,6 +32,7 @@ class GamePlayCreateView(TemplateView):
         formset = inlineformset_factory(
             GamePlay,
             PlayerRank,
+            form=PlayerRankForm,
             extra=player_count,
             can_delete=False,
         )
@@ -96,6 +97,7 @@ class GamePlayCreateFromGameView(BaseDetailView, TemplateView):
         formset = inlineformset_factory(
             GamePlay,
             PlayerRank,
+            form=PlayerRankForm,
             extra=player_count,
             can_delete=False,
         )

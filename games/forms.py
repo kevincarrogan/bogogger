@@ -16,3 +16,9 @@ class GamePlayFromGameForm(forms.ModelForm):
     class Meta:
         model = GamePlay
         fields = ('played_at',)
+
+
+class PlayerRankForm(forms.ModelForm):
+
+    class Meta:
+        model = PlayerRank
