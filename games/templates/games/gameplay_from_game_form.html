@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Record Play of {{ game.name }}</h1>
+
+<form method="post">
+    {% csrf_token %}
+
+    {% with form=game_play_form %}
+    {% include 'includes/_fieldset.html' %}
+    {% endwith %}
+
+    {% with form=game_play_formset.management_form %}
+    {% include 'includes/_fieldset.html' %}
+    {% endwith %}
+
+    {% for form in game_play_formset.forms %}
+    {% include 'includes/_fieldset.html' %}
+    {% endfor %}
+
+    <button type="submit">
+        Save Play
+    </button>
+</form>
+
+{% endblock %}
