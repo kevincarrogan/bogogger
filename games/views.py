@@ -8,7 +8,7 @@ from django.shortcuts import redirect
 from players.models import Player
 
 from .models import Game, GamePlay, PlayerRank
-from .forms import GamePlayForm, GamePlayFromGameForm, PlayerRankForm
+from .forms import GamePlayForm, GamePlayFromGameForm, GamePlayFromCoopGameForm, PlayerRankForm, PlayerRankCoopGameForm
 
 
 class GameCreateView(CreateView):
@@ -94,10 +94,17 @@ class GamePlayCreateFromGameView(BaseDetailView, TemplateView):
     def get_formset(self, instance=None, data=None):
         player_count = Player.objects.count()
 
+        game = self.get_object()
+
+        if game.is_coop:
+            player_rank_form_class = PlayerRankCoopGameForm
+        else:
+            player_rank_form_class = PlayerRankForm
+
         formset = inlineformset_factory(
             GamePlay,
             PlayerRank,
-            form=PlayerRankForm,
+            form=player_rank_form_class,
             extra=player_count,
             can_delete=False,
         )
@@ -120,6 +127,12 @@ class GamePlayCreateFromGameView(BaseDetailView, TemplateView):
             args = (data,)
         if instance:
             kwargs = {'instance': instance}
+
+        game = self.get_object()
+
+        if game.is_coop:
+            return GamePlayFromCoopGameForm(*args, **kwargs)
+
         return GamePlayFromGameForm(*args, **kwargs)
 
     def post(self, request, slug):

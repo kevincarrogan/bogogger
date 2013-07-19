@@ -18,7 +18,21 @@ class GamePlayFromGameForm(forms.ModelForm):
         fields = ('played_at',)
 
 
+class GamePlayFromCoopGameForm(forms.ModelForm):
+
+    class Meta:
+        model = GamePlay
+        fields = ('played_at', 'win',)
+
+
 class PlayerRankForm(forms.ModelForm):
 
     class Meta:
         model = PlayerRank
+
+
+class PlayerRankCoopGameForm(forms.ModelForm):
+
+    class Meta:
+        model = PlayerRank
+        fields = ('player',)
