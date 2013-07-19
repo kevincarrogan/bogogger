@@ -25,6 +25,9 @@ class GamePlay(models.Model):
     players = models.ManyToManyField(Player, through='PlayerRank')
     played_at = models.DateField()
 
+    # This is only relevant for co-op games (at the moment)
+    win = models.NullBooleanField()
+
     def get_absolute_url(self):
         return reverse('game_play_detail', args=(), kwargs={'pk': self.pk})
 
@@ -36,6 +39,7 @@ class PlayerRank(models.Model):
     player = models.ForeignKey(Player)
     game_play = models.ForeignKey(GamePlay)
 
+    # This is not relevant for co-op games (at the moment)
     rank = models.PositiveIntegerField(null=True, blank=True)
 
     def __unicode__(self):
