@@ -2,4 +2,24 @@
 
 {% block content %}
 <h1>{{ player.first_name }} {{ player.last_name }}</h1>
+
+<section class="recently-played">
+    <h1>Recently Played</h1>
+
+    {% for game_play in recently_played %}
+    <article>
+        <h1>{{ game_play.game }}</h1>
+        <time>{{ game_play.played_at|date:'c' }}</time>
+
+        <ul>
+            {% for player in game_play.players.all %}
+            <li>
+                <a href="{% url 'player_detail' slug=player.slug %}">{{ player }}</a></li>
+            {% endfor %}
+        </ul>
+    </article>
+    {% empty %}
+    You haven't played any games yet.
+    {% endfor %}
+</section>
 {% endblock %}
