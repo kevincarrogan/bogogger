@@ -41,7 +41,6 @@ class PlayerRankCoopGameForm(forms.ModelForm):
 class PlayerRankFormset(BaseInlineFormSet):
 
     def clean(self, *args, **kwargs):
-        instance = self.instance
         game = self.instance.game
         min_players = game.min_players
 
