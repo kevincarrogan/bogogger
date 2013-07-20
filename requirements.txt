@@ -2,3 +2,4 @@ Django==1.5.1
 South==0.8.1
 django-autoslug==1.7.1
 django-model-utils==1.4.0
+MySQL-python==1.2.4
