@@ -41,6 +41,7 @@ class PlayerRank(models.Model):
 
     # This is not relevant for co-op games (at the moment)
     rank = models.PositiveIntegerField(null=True, blank=True)
+    score = models.IntegerField(null=True, blank=True)
 
     def __unicode__(self):
         return '%s. %s (%s)' % (self.rank, self.player, self.game_play)
