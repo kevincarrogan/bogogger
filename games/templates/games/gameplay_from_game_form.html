@@ -6,17 +6,31 @@
 <form method="post">
     {% csrf_token %}
 
-    {% with form=game_play_form %}
-    {% include 'includes/_fieldset.html' %}
-    {% endwith %}
-
     {% with form=game_play_formset.management_form %}
     {% include 'includes/_fieldset.html' %}
     {% endwith %}
 
-    {% for form in game_play_formset.forms %}
-    {% include 'includes/_fieldset.html' %}
-    {% endfor %}
+    <fieldset>
+        <legend>Play Details</legend>
+        {% with form=game_play_form %}
+        {% include 'includes/_fieldset.html' %}
+        {% endwith %}
+    </fieldset>
+
+    <fieldset>
+        <legend>Player Details</legend>
+
+        {% if game_play_formset.non_form_errors %}
+        <ul class="form-errors">
+            {% for error in game_play_formset.non_form_errors %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% for form in game_play_formset.forms %}
+        {% include 'includes/_fieldset.html' %}
+        {% endfor %}
+    </fieldset>
 
     <button type="submit">
         Save Play

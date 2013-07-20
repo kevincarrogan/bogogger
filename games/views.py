@@ -8,7 +8,7 @@ from django.shortcuts import redirect
 from players.models import Player
 
 from .models import Game, GamePlay, PlayerRank
-from .forms import GamePlayForm, GamePlayFromGameForm, GamePlayFromCoopGameForm, PlayerRankForm, PlayerRankCoopGameForm
+from .forms import GamePlayForm, GamePlayFromGameForm, GamePlayFromCoopGameForm, PlayerRankForm, PlayerRankCoopGameForm, PlayerRankFormset
 
 
 class GameCreateView(CreateView):
@@ -105,6 +105,7 @@ class GamePlayCreateFromGameView(BaseDetailView, TemplateView):
             GamePlay,
             PlayerRank,
             form=player_rank_form_class,
+            formset=PlayerRankFormset,
             extra=player_count,
             can_delete=False,
         )
@@ -140,13 +141,20 @@ class GamePlayCreateFromGameView(BaseDetailView, TemplateView):
         game_play_form = self.get_form(game_play, request.POST)
         game_play_formset = self.get_formset(game_play, request.POST)
 
-        if game_play_form.is_valid() and game_play_formset.is_valid():
+        # Doing this here so that we can run both and display all errors
+        # In an if statement this may shortcircuit.
+        game_play_form_is_valid = game_play_form.is_valid()
+        game_play_formset_is_valid = game_play_formset.is_valid()
+
+        if game_play_form_is_valid and game_play_formset_is_valid:
             game_play = game_play_form.save()
             game_play_formset.save()
 
             return redirect('game_play_detail', pk=game_play.pk)
 
-        return self.render_to_response(self.get_context_data(form=game_play_form, formset=game_play_formset))
+        self.object = self.get_object()
+
+        return self.render_to_response(self.get_context_data(object=self.get_object(), form=game_play_form, formset=game_play_formset))
 
     def get_context_data(self, object, form=None, formset=None):
         ctx = super(GamePlayCreateFromGameView, self).get_context_data()
