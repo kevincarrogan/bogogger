@@ -17,6 +17,18 @@
         <script src="/static/js/vendor/modernizr-2.6.2.min.js"></script>
     </head>
     <body class="{% block body_class %}{% endblock %}">
+
+        <header>
+            <h1>Game Log</h1>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'game_list' %}">Games</a></li>
+                    <li><a href="{% url 'game_play_list' %}">Plays</a></li>
+                    <li><a href="{% url 'player_list' %}">Players</a></li>
+                </ul>
+            </nav>
+        </header>
+
         <main>
             {% block content %}
             {% endblock %}
