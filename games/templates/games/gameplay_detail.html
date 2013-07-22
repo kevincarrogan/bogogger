@@ -3,6 +3,12 @@
 {% block content %}
 <h1>Play of <a href="{% url 'game_detail' slug=gameplay.game.slug %}">{{ gameplay.game }}</a></h1>
 
+<nav>
+    <ul>
+        <li><a href="{% url 'game_play_update' pk=gameplay.pk %}">Edit</a></li>
+    </ul>
+</nav>
+
 <ul>
     {% for player in gameplay.players.all %}
     <li>

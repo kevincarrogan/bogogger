@@ -177,6 +177,72 @@ class GamePlayCreateFromGameView(BaseDetailView, TemplateView):
         return ctx
 
 
+class GamePlayUpdateView(TemplateView):
+    template_name = 'games/gameplay_form.html'
+
+    def get_formset(self, instance, data=None):
+        player_count = Player.objects.count()
+
+        formset = inlineformset_factory(
+            GamePlay,
+            PlayerRank,
+            form=PlayerRankForm,
+            extra=player_count,
+            can_delete=False,
+        )
+
+        args = ()
+        kwargs = {}
+
+        if data:
+            args = (data,)
+
+        if instance:
+            kwargs = {'instance': instance}
+
+        return formset(*args, **kwargs)
+
+    def get_form(self, instance, data=None):
+        args = ()
+        kwargs = {}
+        if data:
+            args = (data,)
+        if instance:
+            kwargs = {'instance': instance}
+        return GamePlayForm(*args, **kwargs)
+
+    def get(self, request, pk):
+        game_play = GamePlay.objects.get(pk=pk)
+
+        game_play_form = self.get_form(game_play)
+        game_play_formset = self.get_formset(game_play)
+
+        return self.render_to_response(self.get_context_data(game_play=game_play, form=game_play_form, formset=game_play_formset))
+
+    def post(self, request, pk):
+        game_play = GamePlay.objects.get(pk=pk)
+        game_play_form = self.get_form(game_play, request.POST)
+        game_play_formset = self.get_formset(game_play, request.POST)
+
+        if game_play_form.is_valid() and game_play_formset.is_valid():
+            game_play = game_play_form.save()
+            game_play_formset.save()
+
+            return redirect('game_play_detail', pk=game_play.pk)
+
+        return self.render_to_response(self.get_context_data(game_play=game_play, form=game_play_form, formset=game_play_formset))
+
+    def get_context_data(self, game_play, form, formset):
+        ctx = super(GamePlayUpdateView, self).get_context_data()
+
+        ctx.update({
+            'game_play': game_play,
+            'game_play_form': form,
+            'game_play_formset': formset,
+        })
+
+        return ctx
+
 class GamePlayDetailView(DetailView):
     model = GamePlay
 
