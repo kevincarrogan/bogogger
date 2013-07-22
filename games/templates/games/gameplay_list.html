@@ -15,6 +15,7 @@
         <tr>
             <th>Game</th>
             <th>Players</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -35,6 +36,9 @@
                     </li>
                     {% endfor %}
                 </ul>
+            </td>
+            <td>
+                <a href="{% url 'game_play_detail' pk=gameplay.pk %}">View Details</a>
             </td>
         </tr>
         {% empty %}
