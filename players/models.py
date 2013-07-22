@@ -26,9 +26,12 @@ class Player(models.Model):
 
     def get_from_self_or_user(self, field_name):
         if self.user:
-            return getattr(self.user, field_name)
+            inst = self.user
         else:
-            return getattr(self, '_%s' % field_name)
+            inst = self
+            field_name = '_%s' % field_name
+
+        return getattr(inst, field_name)
 
     @property
     def first_name(self):
