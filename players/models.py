@@ -12,8 +12,14 @@ class Player(models.Model):
     )
 
     # Fields if this isn't tied to a user
-    _first_name = models.CharField(max_length=255, blank=True, null=True, verbose_name='First name')
-    _last_name = models.CharField(max_length=255, blank=True, null=True, verbose_name='Last name')
+    _first_name = models.CharField(
+        max_length=255, blank=True, null=True,
+        verbose_name='First name',
+    )
+    _last_name = models.CharField(
+        max_length=255, blank=True, null=True,
+        verbose_name='Last name',
+    )
 
     def get_absolute_url(self):
         return reverse('player_detail', args=(), kwargs={'slug': self.slug})
