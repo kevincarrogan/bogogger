@@ -1,4 +1,4 @@
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.detail import DetailView, BaseDetailView
 from django.views.generic.list import ListView
 from django.views.generic.base import TemplateView
@@ -20,6 +20,10 @@ class GameDetailView(DetailView):
 
 
 class GameListView(ListView):
+    model = Game
+
+
+class GameUpdateView(UpdateView):
     model = Game
 
 

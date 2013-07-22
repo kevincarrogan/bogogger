@@ -3,9 +3,18 @@
 {% block content %}
 <h1>{{ game.name }}</h1>
 
-<a href="{% url 'game_play_create_from_game' slug=game.slug %}">
-    Log Play
-</a>
+<nav>
+    <ul>
+        <li>
+            <a href="{% url 'game_play_create_from_game' slug=game.slug %}">
+                Log Play
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'game_update' slug=game.slug %}">Edit</a>
+        </li>
+    </ul>
+</nav>
 
 <dl>
     <dt>Players</dt>

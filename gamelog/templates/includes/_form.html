@@ -4,6 +4,12 @@
     {% include 'includes/_fieldset.html' %}
 
     <div class="actions">
-        <button type="submit">Create New</button>
+        <button type="submit">
+            {% if object %}
+            Save
+            {% else %}
+            Create New
+            {% endif %}
+        </button>
     </div>
 </form>
