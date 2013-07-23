@@ -17,7 +17,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'gamelog',
         # The following settings are not used with sqlite3:
-        'USER': 'gamelog',
+        'USER': 'root',
         'PASSWORD': '',
         'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '',                      # Set to empty string for default.
@@ -126,6 +126,7 @@ INSTALLED_APPS = (
 
     'games',
     'players',
+    'ratings',
 
     'south',
 )
