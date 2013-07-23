@@ -159,3 +159,5 @@ LOGGING = {
         },
     }
 }
+
+INITIAL_ELO_RATING = 1200

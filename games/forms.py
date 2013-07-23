@@ -1,5 +1,8 @@
 from django import forms
 from django.forms.models import BaseInlineFormSet
+from django.conf import settings
+
+from ratings.models import Rating
 
 from .models import GamePlay, PlayerRank
 
@@ -48,3 +51,17 @@ class PlayerRankFormset(BaseInlineFormSet):
             raise forms.ValidationError('This game requires at least %d players to have played' % min_players)
 
         return super(PlayerRankFormset, self).clean(*args, **kwargs)
+
+    def save(self):
+        ranks = super(PlayerRankFormset, self).save()
+
+        game_play = self.instance
+
+        for rank in ranks:
+            Rating.objects.create(
+                player=rank.player,
+                game_play=game_play,
+                rating=settings.INITIAL_ELO_RATING,
+            )
+
+        return ranks
