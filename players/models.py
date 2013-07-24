@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
+from django.conf import settings
 
 from autoslug import AutoSlugField
 
@@ -43,3 +44,9 @@ class Player(models.Model):
 
     def __unicode__(self):
         return '%s %s' % (self.first_name, self.last_name)
+
+    def get_current_rating_for_game(self, game):
+        try:
+            return self.rating_set.filter(game_play__game=game).order_by('created_at')[0].rating
+        except IndexError:
+            return settings.INITIAL_ELO_RATING
