@@ -6,6 +6,7 @@ from django.forms.models import inlineformset_factory, formset_factory
 from django.shortcuts import redirect
 
 from players.models import Player
+from ratings.models import GamePlayerRating
 
 from .models import Game, GamePlay, PlayerRank
 from .forms import GamePlayForm, GamePlayFromGameForm, GamePlayFromCoopGameForm, PlayerRankForm, PlayerRankCoopGameForm, PlayerRankFormset
@@ -17,6 +18,17 @@ class GameCreateView(CreateView):
 
 class GameDetailView(DetailView):
     model = Game
+
+    def get_context_data(self, object):
+        ctx = super(GameDetailView, self).get_context_data()
+
+        ratings = GamePlayerRating.objects.filter(game=self.get_object())
+        ratings = ratings.order_by('-rating__rating')
+        ratings = ratings[:10]
+
+        ctx['ratings'] = ratings
+
+        return ctx
 
 
 class GameListView(ListView):

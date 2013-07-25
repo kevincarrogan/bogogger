@@ -26,4 +26,20 @@
         {% endif %}
     </dd>
 </dl>
+
+{% if game.has_elo_ratings %}
+    <h2>Ratings</h2>
+    {% if ratings %}
+    <ol>
+        {% for rating in ratings %}
+        <li>{{ rating }}</li>
+        {% endfor %}
+    </ol>
+    {% else %}
+    <p>
+        <em>There are no rankings for this game.</em>
+    </p>
+    {% endif %}
+{% endif %}
+
 {% endblock %}

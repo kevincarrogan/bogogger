@@ -19,6 +19,9 @@ class Game(models.Model):
     def __unicode__(self):
         return self.name
 
+    def has_elo_ratings(self):
+        return self.min_players == 2 and self.max_players == 2
+
 
 class GamePlay(models.Model):
     game = models.ForeignKey(Game)
