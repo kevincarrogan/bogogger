@@ -5,7 +5,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.conf import settings
 
-from games.models import GamePlay
+from games.models import GamePlay, Game
 from players.models import Player
 
 
@@ -40,3 +40,39 @@ class Rating(models.Model):
             loser_rating = get_new_rating(loser_rating, settings.ELO_DRAW_SCORE, loser_probability)
 
         return (winner_rating, loser_rating,)
+
+    def save(self, *args, **kwargs):
+        rating = super(Rating, self).save(*args, **kwargs)
+
+        try:
+            rating = Rating.objects.filter(
+                player=self.player,
+                game_play__game=self.game_play.game,
+            ).order_by(
+                '-game_play__played_at',
+            )[0]
+            game_rating = GamePlayerRating.objects.get(
+                player=self.player,
+                game=self.game_play.game,
+            )
+            game_rating.rating = self
+            game_rating.save()
+        except GamePlayerRating.DoesNotExist:
+            GamePlayerRating.objects.create(
+                player=self.player,
+                game=self.game_play.game,
+                rating=self,
+            )
+
+
+class GamePlayerRating(models.Model):
+
+    player = models.ForeignKey(Player)
+    game = models.ForeignKey(Game)
+    rating = models.ForeignKey(Rating)
+
+    class Meta:
+        unique_together = ('player', 'game',)
+
+    def __unicode__(self):
+        return '%s' % self.rating
