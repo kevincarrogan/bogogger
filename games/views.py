@@ -2,7 +2,7 @@ from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.detail import DetailView, BaseDetailView
 from django.views.generic.list import ListView
 from django.views.generic.base import TemplateView
-from django.forms.models import inlineformset_factory, formset_factory
+from django.forms.models import inlineformset_factory
 from django.shortcuts import redirect
 
 from players.models import Player
@@ -254,6 +254,7 @@ class GamePlayUpdateView(TemplateView):
         })
 
         return ctx
+
 
 class GamePlayDetailView(DetailView):
     model = GamePlay
