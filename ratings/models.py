@@ -24,8 +24,8 @@ class Rating(models.Model):
     rating = models.PositiveIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
 
-    def __str__(self):
-        return '%s - %s - %s' % (self.player, self.game_play.game, self.rating)
+    def __unicode__(self):
+        return u'%s - %s - %s' % (self.player, self.game_play.game, self.rating)
 
     @staticmethod
     def get_new_ratings(winner_rating, loser_rating, draw=False):
@@ -75,4 +75,4 @@ class GamePlayerRating(models.Model):
         unique_together = ('player', 'game',)
 
     def __unicode__(self):
-        return '%s' % self.rating
+        return u'%s' % self.rating

@@ -43,7 +43,7 @@ class Player(models.Model):
         return self.get_from_self_or_user('last_name')
 
     def __unicode__(self):
-        return '%s %s' % (self.first_name, self.last_name)
+        return u'%s %s' % (self.first_name, self.last_name)
 
     def get_current_rating_for_game(self, game):
         try:
