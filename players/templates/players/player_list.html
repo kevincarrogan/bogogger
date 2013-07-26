@@ -16,7 +16,9 @@
     <tbody>
         {% for player in player_list %}
         <tr>
-            <td>{{ player }}</td>
+            <td>
+                <a href="{% url 'player_detail' slug=player.slug %}">{{ player }}</a>
+            </td>
         </tr>
         {% endfor %}
     </tbody>

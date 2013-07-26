@@ -34,7 +34,7 @@
     {% for recent_play in recent_plays %}
         <li>
             {% for player in recent_play.players.all %}
-            {{ player }}
+            <a href="{% url 'player_detail' slug=player.slug %}">{{ player }}</a>
             {% if not forloop.last %}
             vs.
             {% endif %}
@@ -51,7 +51,9 @@
     {% if ratings %}
     <ol>
         {% for rating in ratings %}
-        <li>{{ rating.player }} - {{ rating.rating.rating }}</li>
+        <li>
+            <a href="{% url 'player_detail' slug=rating.player.slug %}">{{ rating.player }}</a> - {{ rating.rating.rating }}
+        </li>
         {% endfor %}
     </ol>
     {% else %}
