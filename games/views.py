@@ -22,11 +22,17 @@ class GameDetailView(DetailView):
     def get_context_data(self, object):
         ctx = super(GameDetailView, self).get_context_data()
 
-        ratings = GamePlayerRating.objects.filter(game=self.get_object())
+        game = self.get_object()
+
+        ratings = GamePlayerRating.objects.filter(game=game)
         ratings = ratings.order_by('-rating__rating')
         ratings = ratings[:10]
-
         ctx['ratings'] = ratings
+
+        recent_plays = GamePlay.objects.filter(game=game)
+        recent_plays = recent_plays.order_by('-played_at')
+        recent_plays = recent_plays[:10]
+        ctx['recent_plays'] = recent_plays
 
         return ctx
 
