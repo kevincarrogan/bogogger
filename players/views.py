@@ -4,6 +4,8 @@ from django.views.generic.list import ListView
 
 from games.models import GamePlay
 
+from ratings.models import GamePlayerRating
+
 from .models import Player
 
 
@@ -20,6 +22,8 @@ class PlayerDetailView(DetailView):
         player = self.get_object()
 
         ctx['recently_played'] = GamePlay.objects.filter(players=player)[:5]
+
+        ctx['ratings'] = GamePlayerRating.objects.filter(player=player)
 
         return ctx
 

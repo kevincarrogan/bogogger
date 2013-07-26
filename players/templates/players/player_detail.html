@@ -3,6 +3,20 @@
 {% block content %}
 <h1>{{ player.first_name }} {{ player.last_name }}</h1>
 
+<section>
+    <h1>Ratings</h1>
+
+    {% if ratings %}
+    <ol>
+    {% for rating in ratings %}
+        <li>{{ rating.game }} - {{ rating.rating.rating }}</li>
+    {% endfor %}
+    </ol>
+    {% else %}
+    <p><em>There are no plays for {{ player }}.</em></p>
+    {% endif %}
+</section>
+
 <section class="recently-played">
     <h1>Recently Played</h1>
 
