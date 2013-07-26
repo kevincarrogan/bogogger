@@ -32,7 +32,7 @@
     {% if ratings %}
     <ol>
         {% for rating in ratings %}
-        <li>{{ rating }}</li>
+        <li>{{ rating.player }} - {{ rating.rating.rating }}</li>
         {% endfor %}
     </ol>
     {% else %}
