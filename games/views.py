@@ -123,12 +123,15 @@ class GamePlayCreateFromGameView(BaseDetailView, TemplateView):
         else:
             player_rank_form_class = PlayerRankForm
 
+        number_of_forms = min(player_count, game.max_players)
+        number_of_forms = max(number_of_forms, game.min_players)
+
         formset = inlineformset_factory(
             GamePlay,
             PlayerRank,
             form=player_rank_form_class,
             formset=PlayerRankFormset,
-            extra=player_count,
+            extra=number_of_forms,
             can_delete=False,
         )
 
