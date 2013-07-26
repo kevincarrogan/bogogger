@@ -45,12 +45,14 @@ class Rating(models.Model):
         rating = super(Rating, self).save(*args, **kwargs)
 
         try:
-            rating = Rating.objects.filter(
+            ordered_ratings = Rating.objects.filter(
                 player=self.player,
                 game_play__game=self.game_play.game,
             ).order_by(
                 '-game_play__played_at',
-            )[0]
+                '-pk',
+            )
+            rating = ordered_ratings[0]
             game_rating = GamePlayerRating.objects.get(
                 player=self.player,
                 game=self.game_play.game,

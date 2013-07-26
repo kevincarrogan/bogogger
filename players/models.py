@@ -47,6 +47,9 @@ class Player(models.Model):
 
     def get_current_rating_for_game(self, game):
         try:
-            return self.rating_set.filter(game_play__game=game).order_by('-game_play__played_at')[0].rating
+            ratings = self.rating_set.filter(game_play__game=game)
+            ratings = ratings.order_by('-game_play__played_at', '-pk')
+
+            return ratings[0].rating
         except IndexError:
             return settings.INITIAL_ELO_RATING
