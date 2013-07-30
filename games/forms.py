@@ -71,21 +71,6 @@ class PlayerRankFormset(BaseInlineFormSet):
     def get_player_game_rating(self, game, rank):
         return (rank.rank, rank.player.get_current_rating_for_game(game),)
 
-    def get_adjustments(self, player_rating, opponent_ratings):
-        player_rank, player_rating = player_rating
-        adjustments = []
-        for opponent_rank, opponent_rating in opponent_ratings:
-            win_probability = Rating.get_win_probability(player_rating, opponent_rating)
-            if player_rank < opponent_rank:
-                score = settings.ELO_WIN_SCORE
-            elif player_rank > opponent_rank:
-                score = settings.ELO_LOSE_SCORE
-            else:
-                score = settings.ELO_DRAW_SCORE
-            adjustments.append(Rating.get_adjustment(score, win_probability))
-
-        return adjustments
-
     def get_new_ratings(self, game, ranks):
         new_ratings = []
         for rank in ranks:
@@ -97,7 +82,7 @@ class PlayerRankFormset(BaseInlineFormSet):
                 for opponent_rank in opponent_ranks
             ]
             new_ratings.append(
-                (rank.player, player_rating[1] + sum(self.get_adjustments(player_rating, opponent_ratings)))
+                (rank.player, player_rating[1] + sum(Rating.get_adjustments(player_rating, opponent_ratings)))
             )
 
         return new_ratings

@@ -52,6 +52,24 @@ class Rating(models.Model):
     def get_adjustment(score, probability):
         return settings.ELO_K_VALUE * (score - probability)
 
+    @staticmethod
+    def get_adjustments(player_rating, opponent_ratings):
+        adjustments = []
+
+        player_rank, player_rating = player_rating
+
+        for opponent_rank, opponent_rating in opponent_ratings:
+            win_probability = Rating.get_win_probability(player_rating, opponent_rating)
+            if player_rank < opponent_rank:
+                score = settings.ELO_WIN_SCORE
+            elif player_rank > opponent_rank:
+                score = settings.ELO_LOSE_SCORE
+            else:
+                score = settings.ELO_DRAW_SCORE
+            adjustments.append(Rating.get_adjustment(score, win_probability))
+
+        return adjustments
+
 
 class GamePlayerRating(models.Model):
 
