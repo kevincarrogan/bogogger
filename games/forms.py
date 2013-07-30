@@ -1,6 +1,5 @@
 from django import forms
 from django.forms.models import BaseInlineFormSet
-from django.conf import settings
 
 from ratings.models import Rating
 
