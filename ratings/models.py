@@ -1,8 +1,4 @@
-import math
-
 from django.db import models
-from django.db.models.signals import post_save
-from django.dispatch import receiver
 from django.conf import settings
 
 from games.models import GamePlay, Game
@@ -30,7 +26,6 @@ class Rating(models.Model):
                 '-game_play__played_at',
                 '-pk',
             )
-            rating = ordered_ratings[0]
             game_rating = GamePlayerRating.objects.get(
                 player=self.player,
                 game=self.game_play.game,
