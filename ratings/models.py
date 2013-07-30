@@ -17,6 +17,10 @@ def get_new_rating(rating, score, probability):
     return rating + (settings.ELO_K_VALUE * (score - probability))
 
 
+def get_adjustment(score, probability):
+    return settings.ELO_K_VALUE * (score - probability)
+
+
 class Rating(models.Model):
 
     player = models.ForeignKey(Player)
@@ -40,6 +44,20 @@ class Rating(models.Model):
             loser_rating = get_new_rating(loser_rating, settings.ELO_DRAW_SCORE, loser_probability)
 
         return (winner_rating, loser_rating,)
+
+    @staticmethod
+    def get_adjustment(winner_rating, loser_rating, draw=False):
+        winner_probability = get_win_probability(winner_rating, loser_rating)
+        loser_probability = get_win_probability(loser_rating, winner_rating)
+
+        if not draw:
+            winner_adjustment = get_adjustment(winner_rating, settings.ELO_WIN_SCORE, winner_probability)
+            loser_adjustment = get_adjustment(loser_rating, settings.ELO_LOSE_SCORE, loser_probability)
+        else:
+            winner_adjustment = get_adjustment(winner_rating, settings.ELO_DRAW_SCORE, winner_probability)
+            loser_adjustment = get_adjustment(loser_rating, settings.ELO_DRAW_SCORE, loser_probability)
+
+        return (winner_adjustment, loser_adjustment,)
 
     def save(self, *args, **kwargs):
         rating = super(Rating, self).save(*args, **kwargs)
