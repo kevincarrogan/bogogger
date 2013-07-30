@@ -9,18 +9,6 @@ from games.models import GamePlay, Game
 from players.models import Player
 
 
-def get_win_probability(current_player_rating, oppenent_rating):
-    return 1 / (10 ** ((oppenent_rating - current_player_rating) / 400.0) + 1)
-
-
-def get_new_rating(rating, score, probability):
-    return rating + (settings.ELO_K_VALUE * (score - probability))
-
-
-def get_adjustment(score, probability):
-    return settings.ELO_K_VALUE * (score - probability)
-
-
 class Rating(models.Model):
 
     player = models.ForeignKey(Player)
@@ -30,34 +18,6 @@ class Rating(models.Model):
 
     def __unicode__(self):
         return u'%s - %s - %s' % (self.player, self.game_play.game, self.rating)
-
-    @staticmethod
-    def get_new_ratings(winner_rating, loser_rating, draw=False):
-        winner_probability = get_win_probability(winner_rating, loser_rating)
-        loser_probability = get_win_probability(loser_rating, winner_rating)
-
-        if not draw:
-            winner_rating = get_new_rating(winner_rating, settings.ELO_WIN_SCORE, winner_probability)
-            loser_rating = get_new_rating(loser_rating, settings.ELO_LOSE_SCORE, loser_probability)
-        else:
-            winner_rating = get_new_rating(winner_rating, settings.ELO_DRAW_SCORE, winner_probability)
-            loser_rating = get_new_rating(loser_rating, settings.ELO_DRAW_SCORE, loser_probability)
-
-        return (winner_rating, loser_rating,)
-
-    @staticmethod
-    def get_adjustment(winner_rating, loser_rating, draw=False):
-        winner_probability = get_win_probability(winner_rating, loser_rating)
-        loser_probability = get_win_probability(loser_rating, winner_rating)
-
-        if not draw:
-            winner_adjustment = get_adjustment(winner_rating, settings.ELO_WIN_SCORE, winner_probability)
-            loser_adjustment = get_adjustment(loser_rating, settings.ELO_LOSE_SCORE, loser_probability)
-        else:
-            winner_adjustment = get_adjustment(winner_rating, settings.ELO_DRAW_SCORE, winner_probability)
-            loser_adjustment = get_adjustment(loser_rating, settings.ELO_DRAW_SCORE, loser_probability)
-
-        return (winner_adjustment, loser_adjustment,)
 
     def save(self, *args, **kwargs):
         rating = super(Rating, self).save(*args, **kwargs)
@@ -83,6 +43,14 @@ class Rating(models.Model):
                 game=self.game_play.game,
                 rating=self,
             )
+
+    @staticmethod
+    def get_win_probability(player_rating, oppenent_rating):
+        return 1 / (10 ** ((oppenent_rating - player_rating) / 400.0) + 1)
+
+    @staticmethod
+    def get_adjustment(score, probability):
+        return settings.ELO_K_VALUE * (score - probability)
 
 
 class GamePlayerRating(models.Model):

@@ -2,7 +2,7 @@ from django import forms
 from django.forms.models import BaseInlineFormSet
 from django.conf import settings
 
-from ratings.models import Rating, get_win_probability, get_adjustment
+from ratings.models import Rating
 
 from .models import GamePlay, PlayerRank
 
@@ -75,14 +75,14 @@ class PlayerRankFormset(BaseInlineFormSet):
         player_rank, player_rating = player_rating
         adjustments = []
         for opponent_rank, opponent_rating in opponent_ratings:
-            win_probability = get_win_probability(player_rating, opponent_rating)
+            win_probability = Rating.get_win_probability(player_rating, opponent_rating)
             if player_rank < opponent_rank:
                 score = settings.ELO_WIN_SCORE
             elif player_rank > opponent_rank:
                 score = settings.ELO_LOSE_SCORE
             else:
                 score = settings.ELO_DRAW_SCORE
-            adjustments.append(get_adjustment(score, win_probability))
+            adjustments.append(Rating.get_adjustment(score, win_probability))
 
         return adjustments
 
