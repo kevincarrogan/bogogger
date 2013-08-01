@@ -128,6 +128,27 @@ main > nav {
     margin-bottom: 2em;
 }
 
+form .actions {
+    margin-left: 9em;
+}
+
+.form-field {
+    margin-bottom: 1em;
+}
+
+.form-field label {
+    display: inline-block;
+    margin-right: 1em;
+    text-align: right;
+    width: 8em;
+}
+
+.required:after {
+    color: #f00;
+    content: '*';
+    margin-left: 0.25em;
+}
+
 table {
     width: 100%;
 }
