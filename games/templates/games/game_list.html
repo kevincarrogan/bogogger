@@ -9,7 +9,7 @@
     </ul>
 </nav>
 
-<table>
+<table class="{% if not game_list %}empty-table{% endif %}">
     <thead>
         <tr>
             <th>Name</th>
@@ -30,7 +30,7 @@
         </tr>
     {% empty %}
         <tr>
-            <td><em>There are no games. Why don't you <a href="{% url 'game_create' %}">add one</a>?</em></td>
+            <td colspan="1000"><em>There are no games. Why don't you <a href="{% url 'game_create' %}">add one</a>?</em></td>
         </tr>
     {% endfor %}
     </tbody>
