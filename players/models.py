@@ -53,3 +53,11 @@ class Player(models.Model):
             return ratings[0].rating
         except IndexError:
             return settings.INITIAL_ELO_RATING
+
+
+class PlayerGroup(models.Model):
+
+    name = models.CharField(max_length=255)
+    slug = AutoSlugField(populate_from='name')
+    players = models.ManyToManyField(Player)
+    games = models.ManyToManyField('games.Game')
