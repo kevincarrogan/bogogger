@@ -126,6 +126,7 @@ INSTALLED_APPS = (
 
     'games',
     'players',
+    'groups',
     'ratings',
 
     'south',

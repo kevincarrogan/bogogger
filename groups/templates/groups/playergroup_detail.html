@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ playergroup }}</h1>
+
+<section>
+    <h1>Players</h1>
+
+    <ul>
+    {% for player in playergroup.players.all %}
+        <li><a href="{% url 'player_detail' player.slug %}">{{ player }}</a></li>
+    {% endfor %}
+    </ul>
+</section>
+
+<section>
+    <h1>Games</h1>
+
+    <ul>
+    {% for game in playergroup.games.all %}
+        <li><a href="{% url 'game_detail' game.slug %}">{{ game }}</a></li>
+    {% endfor %}
+    </ul>
+</section>
+{% endblock %}

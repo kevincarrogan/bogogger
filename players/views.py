@@ -6,7 +6,7 @@ from games.models import GamePlay
 
 from ratings.models import GamePlayerRating
 
-from .models import Player, PlayerGroup
+from .models import Player
 
 
 class PlayerCreateView(CreateView):
@@ -30,7 +30,3 @@ class PlayerDetailView(DetailView):
 
 class PlayerListView(ListView):
     model = Player
-
-
-class PlayerGroupCreateView(CreateView):
-    model = PlayerGroup
