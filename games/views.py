@@ -1,3 +1,5 @@
+import datetime
+
 from django.views.generic.edit import CreateView, UpdateView
 from django.views.generic.detail import DetailView, BaseDetailView
 from django.views.generic.list import ListView
@@ -148,7 +150,14 @@ class GamePlayCreateFromGameView(BaseDetailView, TemplateView):
 
     def get_form(self, instance=None, data=None):
         args = ()
-        kwargs = {}
+
+        now = datetime.datetime.now()
+        just_now = datetime.datetime(now.year, now.month, now.day, now.hour)
+        kwargs = {
+            'initial': {
+                'played_at': just_now,
+            }
+        }
         if data:
             args = (data,)
         if instance:

@@ -14,6 +14,7 @@ class GamePlayForm(forms.ModelForm):
 
 
 class GamePlayFromGameForm(forms.ModelForm):
+    played_at = forms.SplitDateTimeField()
 
     class Meta:
         model = GamePlay
