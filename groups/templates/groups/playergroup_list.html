@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Groups</h1>
+
+<ul>
+{% for group in playergroup_list %}
+    <li><a href="{% url 'player_group_detail' group.slug %}">{{ group }}</a></li>
+{% endfor %}
+</ul>
+
+{% endblock %}
