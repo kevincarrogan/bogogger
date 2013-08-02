@@ -61,16 +61,6 @@ img {
 }
 
 /*
- * Remove default fieldset styles.
- */
-
-fieldset {
-    border: 0;
-    margin: 0;
-    padding: 0;
-}
-
-/*
  * Allow only vertical resizing of textareas.
  */
 
@@ -128,6 +118,10 @@ main > nav {
     margin-bottom: 2em;
 }
 
+fieldset {
+    margin-bottom: 2em;
+}
+
 form .actions {
     margin-left: 9em;
 }
@@ -143,10 +137,20 @@ form .actions {
     width: 8em;
 }
 
+form .form-field:last-of-type {
+    margin-bottom: 0;
+}
+
 .required:after {
     color: #f00;
     content: '*';
     margin-left: 0.25em;
+}
+
+legend {
+    color: #666;
+    font-style: italic;
+    margin-left: 1em;
 }
 
 table {
