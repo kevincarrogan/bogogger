@@ -12,17 +12,30 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'gamelog',
-        # The following settings are not used with sqlite3:
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '',                      # Set to empty string for default.
+ENVIRONMENT = os.environ.get('ENVIRONMENT', 'development')
+
+if ENVIRONMENT == 'development':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'gamelog',
+            'USER': 'root',
+            'PASSWORD': '',
+            'HOST': '',
+            'POST': '',
+        }
     }
-}
+elif ENVIRONMENT == 'production':
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.environ.get('HEROKU_DB_NAME'),
+            'USER': os.environ.get('HEROKU_DB_USER'),
+            'PASSWORD': os.environ.get('HEROKU_DB_PASSWORD'),
+            'HOST': os.environ.get('HEROKU_DB_HOST'),
+            'PORT': os.environ.get('HEROK_DB_PORT'),                      # Set to empty string for default.
+        }
+    }
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
@@ -64,7 +77,7 @@ MEDIA_URL = ''
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/var/www/example.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = 'staticfiles'
 
 # URL prefix for static files.
 # Example: "http://example.com/static/", "http://static.example.com/"

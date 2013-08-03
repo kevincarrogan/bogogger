@@ -2,4 +2,9 @@ Django==1.5.1
 South==0.8.1
 django-autoslug==1.7.1
 django-model-utils==1.4.0
-MySQL-python==1.2.4
+psycopg2==2.5.1
+greenlet==0.4.0
+gunicorn==0.16.1
+gevent==0.13.8
+dj-static==0.0.5
+static==0.4
