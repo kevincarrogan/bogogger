@@ -3,7 +3,9 @@ import os
 
 PROJECT_DIR = os.path.dirname(os.path.realpath(__file__))
 
-DEBUG = True
+ENVIRONMENT = os.environ.get('ENVIRONMENT', 'development')
+
+DEBUG = ENVIRONMENT == 'development'
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -11,8 +13,6 @@ ADMINS = (
 )
 
 MANAGERS = ADMINS
-
-ENVIRONMENT = os.environ.get('ENVIRONMENT', 'development')
 
 if ENVIRONMENT == 'development':
     DATABASES = {
@@ -39,7 +39,7 @@ elif ENVIRONMENT == 'production':
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['gamelogger.herokuapp.com']
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -100,7 +100,10 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = 'r%nn!lp#8yyn!*4wh0bmy7&%p42s9i52o3-_#%-m4)lptz7c!b'
+if ENVIRONMENT == 'development':
+    SECRET_KEY = 'r%nn!lp#8yyn!*4wh0bmy7&%p42s9i52o3-_#%-m4)lptz7c!b'
+else:
+    SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
