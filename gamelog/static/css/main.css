@@ -131,7 +131,7 @@ form .actions {
 }
 
 .form-field label {
-    display: inline-block;
+    float: left;
     margin-right: 1em;
     text-align: right;
     width: 8em;
