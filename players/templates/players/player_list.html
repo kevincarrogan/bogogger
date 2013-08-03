@@ -9,15 +9,23 @@
     </ul>
 </nav>
 
-<table>
+<table class="{% if not player_list %}empty-table{% endif %}">
     <thead>
-        <tr>Name</tr>
+        <tr>
+            <th>Name</th>
+        </tr>
     </thead>
     <tbody>
         {% for player in player_list %}
         <tr>
             <td>
                 <a href="{% url 'player_detail' slug=player.slug %}">{{ player }}</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr colspan="1000">
+            <td>
+                <em>There are no players. <a href="{% url 'player_create' %}">Add one now.</a></em>
             </td>
         </tr>
         {% endfor %}
