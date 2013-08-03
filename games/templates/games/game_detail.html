@@ -27,6 +27,36 @@
     </dd>
 </dl>
 
+<section>
+    <h1>Leaderboard</h1>
+    <table class="{% if not ratings %}empty-table{% endif %}">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Rating</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for rating in ratings %}
+            <tr>
+                <td>
+                    <a href="{% url 'player_detail' slug=rating.player.slug %}">{{ rating.player }}</a>
+                </td>
+                <td>
+                    {{ rating.rating.rating }}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="1000">
+                    <em>There have been no plays of {{ game }}. Do you want to <a href="{% url 'game_play_create_from_game' slug=game.slug %}">log on</a>?</em>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</section>
+
 <h2>Recent Plays</h2>
 
 {% if recent_plays %}
@@ -44,21 +74,6 @@
     </ol>
 {% else %}
     <p><em>There haven't been any plays of {{ game }}</em></p>
-{% endif %}
-
-<h2>Ratings</h2>
-{% if ratings %}
-<ol>
-    {% for rating in ratings %}
-    <li>
-        <a href="{% url 'player_detail' slug=rating.player.slug %}">{{ rating.player }}</a> - {{ rating.rating.rating }}
-    </li>
-    {% endfor %}
-</ol>
-{% else %}
-<p>
-    <em>There are no rankings for this game.</em>
-</p>
 {% endif %}
 
 {% endblock %}
