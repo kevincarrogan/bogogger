@@ -1,14 +1,11 @@
 from django.db import models
 from django.conf import settings
 
-from games.models import GamePlay, Game
-from players.models import Player
-
 
 class Rating(models.Model):
 
-    player = models.ForeignKey(Player)
-    game_play = models.ForeignKey(GamePlay)
+    player = models.ForeignKey('players.Player')
+    game_play = models.ForeignKey('games.GamePlay')
     rating = models.PositiveIntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
 
@@ -68,8 +65,8 @@ class Rating(models.Model):
 
 class GamePlayerRating(models.Model):
 
-    player = models.ForeignKey(Player)
-    game = models.ForeignKey(Game)
+    player = models.ForeignKey('players.Player')
+    game = models.ForeignKey('games.Game')
     rating = models.ForeignKey(Rating)
 
     class Meta:

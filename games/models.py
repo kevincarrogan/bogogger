@@ -3,8 +3,6 @@ from django.core.urlresolvers import reverse
 
 from autoslug import AutoSlugField
 
-from players.models import Player
-
 
 class Game(models.Model):
     name = models.CharField(max_length=255)
@@ -22,7 +20,7 @@ class Game(models.Model):
 
 class GamePlay(models.Model):
     game = models.ForeignKey(Game)
-    players = models.ManyToManyField(Player, through='PlayerRank')
+    players = models.ManyToManyField('players.Player', through='PlayerRank')
     played_at = models.DateField()
 
     # This is only relevant for co-op games (at the moment)
@@ -36,7 +34,7 @@ class GamePlay(models.Model):
 
 
 class PlayerRank(models.Model):
-    player = models.ForeignKey(Player)
+    player = models.ForeignKey('players.Player')
     game_play = models.ForeignKey(GamePlay)
 
     # This is not relevant for co-op games (at the moment)
