@@ -1,7 +1,7 @@
 # Django settings for gamelog project.
 import os
 
-PROJECT_DIR = os.path.dirname(os.path.realpath(__file__))
+PROJECT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 ENVIRONMENT = os.environ.get('ENVIRONMENT', 'development')
 
