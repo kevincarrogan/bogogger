@@ -3,6 +3,14 @@
 {% block content %}
 <h1>Groups</h1>
 
+<nav>
+    <ul>
+        <li>
+            <a href="{% url 'player_group_create' %}">Create Group</a>
+        </li>
+    </ul>
+</nav>
+
 <ul>
 {% for group in playergroup_list %}
     <li><a href="{% url 'player_group_detail' group.slug %}">{{ group }}</a></li>
