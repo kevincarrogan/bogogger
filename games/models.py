@@ -21,7 +21,7 @@ class Game(models.Model):
 class GamePlay(models.Model):
     game = models.ForeignKey(Game)
     players = models.ManyToManyField('players.Player', through='PlayerRank')
-    played_at = models.DateField()
+    played_at = models.DateTimeField()
 
     # This is only relevant for co-op games (at the moment)
     win = models.NullBooleanField()
