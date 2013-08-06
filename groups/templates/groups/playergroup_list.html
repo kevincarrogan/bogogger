@@ -11,10 +11,28 @@
     </ul>
 </nav>
 
-<ul>
-{% for group in playergroup_list %}
-    <li><a href="{% url 'player_group_detail' group.slug %}">{{ group }}</a></li>
-{% endfor %}
-</ul>
+<table class="{% if not playergroup_list %}empty-table{% endif %}">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Players</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for group in playergroup_list %}
+        <tr>
+            <td>
+                <a href="{% url 'player_group_detail' slug=group.slug %}">{{ group }}</a>
+            </td>
+            <td>{{ group.players.count }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="1000">
+                <em>There are no groups. Do you want to <a href="{% url 'player_group_create' %}">create one</a>?</em></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
 {% endblock %}
