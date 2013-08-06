@@ -14,12 +14,36 @@
 </section>
 
 <section>
-    <h1>Games</h1>
+    <h1>Leaderboards</h1>
 
-    <ul>
-    {% for game in playergroup.games.all %}
-        <li><a href="{% url 'game_detail' game.slug %}">{{ game }}</a></li>
+    {% for game, leaderboard in leaderboards %}
+    <h2><a href="{% url 'game_detail' game.slug %}">{{ game }}</a></h2>
+
+    <table class="{% if not leaderboard %}empty-table{% endif %}">
+        <thead>
+            <tr>
+                <th>Player</th>
+                <th>Rating</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for rating in leaderboard %}
+            <tr>
+                <td>
+                    <a href="{% url 'player_detail' rating.player.slug %}">{{ rating.player }}</a></td>
+                <td>{{ rating.rating.rating }}</td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="1000">
+                    <em>There are no plays for this group at <a href="{% url 'game_detail' game.slug %}">{{ game }}</a></em>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
     {% endfor %}
-    </ul>
 </section>
+
 {% endblock %}
