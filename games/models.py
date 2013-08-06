@@ -17,6 +17,13 @@ class Game(models.Model):
     def __unicode__(self):
         return self.name
 
+    @property
+    def number_of_players(self):
+        if self.min_players == self.max_players:
+            return u'%d' % self.min_players
+        else:
+            return u'%d - %d' % (self.min_players, self.max_players)
+
 
 class GamePlay(models.Model):
     game = models.ForeignKey(Game)

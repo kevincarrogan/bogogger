@@ -145,6 +145,7 @@ INSTALLED_APPS = (
     'groups',
     'ratings',
 
+    'django_tables2',
     'south',
 )
 

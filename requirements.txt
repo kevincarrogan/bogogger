@@ -8,3 +8,4 @@ gunicorn==0.16.1
 gevent==0.13.8
 dj-static==0.0.5
 static==0.4
+django-tables2==0.13.0
