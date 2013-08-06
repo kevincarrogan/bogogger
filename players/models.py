@@ -53,3 +53,12 @@ class Player(models.Model):
             return ratings[0].rating
         except IndexError:
             return settings.INITIAL_ELO_RATING
+
+    def get_current_group_rating_for_game(self, game, group):
+        try:
+            group_ratings = self.grouprating_set.filter(group=group, game_play__game=game)
+            group_ratings = group_ratings.order_by('-game_play__played_at', '-pk')
+
+            return group_ratings[0].rating
+        except IndexError:
+            return self.get_current_rating_for_game(game)
