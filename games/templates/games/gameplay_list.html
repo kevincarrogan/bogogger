@@ -10,7 +10,7 @@
     </ul>
 </nav>
 
-<table class="empty-table">
+<table class="{% if not gameplay_list %}empty-table{% endif %}">
     <thead>
         <tr>
             <th>Game</th>
