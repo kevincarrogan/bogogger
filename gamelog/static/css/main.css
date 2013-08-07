@@ -121,7 +121,9 @@ header nav ul li a {
 }
 
 main {
-    padding: 2em;
+    margin: 0 auto;
+    padding: 2em 0;
+    width: 50em;
 }
 
 main > h1 {
