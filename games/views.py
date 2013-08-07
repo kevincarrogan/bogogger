@@ -12,7 +12,7 @@ from ratings.models import GamePlayerRating
 
 from .models import Game, GamePlay, PlayerRank
 from .forms import GamePlayForm, GamePlayFromGameForm, GamePlayFromCoopGameForm, PlayerRankForm, PlayerRankCoopGameForm, PlayerRankFormset
-from .tables import GameTable, GameLeaderboardTable
+from .tables import GameTable, GameLeaderboardTable, GamePlayTable
 
 
 class GameCreateView(CreateView):
@@ -288,3 +288,10 @@ class GamePlayDetailView(DetailView):
 
 class GamePlayListView(ListView):
     model = GamePlay
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super(GamePlayListView, self).get_context_data(*args, **kwargs)
+
+        ctx['table'] = GamePlayTable(self.get_queryset())
+
+        return ctx

@@ -3,7 +3,7 @@ from django_tables2.utils import A
 
 from django.core.urlresolvers import reverse
 
-from .models import Game
+from .models import Game, GamePlay
 from ratings.models import GamePlayerRating
 
 
@@ -41,3 +41,20 @@ class GameLeaderboardTable(EmptyTableMixin, tables.Table):
     class Meta:
         model = GamePlayerRating
         fields = ('player', 'rating.rating',)
+
+
+class GamePlayTable(EmptyTableMixin, tables.Table):
+    game = tables.LinkColumn(
+        'game_detail',
+        args=[A('game.slug')]
+    )
+    players = tables.TemplateColumn(template_name='games/includes/_game_play_players.html')
+    actions = tables.TemplateColumn(template_name='games/includes/_game_play_actions.html')
+
+    class Meta:
+        model = GamePlay
+        fields = ('game', 'players',)
+
+    @property
+    def new_model_url(self):
+        return reverse('game_play_create')

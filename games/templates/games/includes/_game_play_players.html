@@ -1,0 +1,7 @@
+<ul>
+{% for player in value.all %}
+<li>
+    <a href="{% url 'player_detail' player.slug %}">{{ player }}</a>
+</li>
+{% endfor %}
+</ul>

@@ -10,45 +10,6 @@
     </ul>
 </nav>
 
-<table class="{% if not gameplay_list %}empty-table{% endif %}">
-    <thead>
-        <tr>
-            <th>Game</th>
-            <th>Players</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for gameplay in gameplay_list %}
-        <tr>
-            <td>
-                <a href="{% url 'game_detail' slug=gameplay.game.slug %}">
-                    {{ gameplay.game }}
-                </a>
-            </td>
-            <td>
-                <ul>
-                    {% for player in gameplay.players.all %}
-                    <li>
-                        <a href="{% url 'player_detail' slug=player.slug %}">
-                            {{ player }}
-                        </a>
-                    </li>
-                    {% endfor %}
-                </ul>
-            </td>
-            <td>
-                <a href="{% url 'game_play_detail' pk=gameplay.pk %}">View Details</a>
-            </td>
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="3">
-                <em>There are no game plays logged. Why don't you <a href="{% url 'game_play_create' %}">add one</a>?</em>
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+{% include 'includes/_table.html' %}
 
 {% endblock %}
