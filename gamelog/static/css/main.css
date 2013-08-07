@@ -83,7 +83,12 @@ textarea {
    Author's custom styles
    ========================================================================== */
 
-a {
+body {
+    color: #333;
+}
+
+a, a:visited {
+    color: #5b92b5;
     text-decoration: none;
 }
 
@@ -92,6 +97,7 @@ a:hover {
 }
 
 header {
+    background-color: #fcfcfc;
     border-bottom: 1px solid #ccc;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     padding: 0.5em 1em;
@@ -116,7 +122,10 @@ header nav ul li {
     float: left;
 }
 
-header nav ul li a {
+header nav ul li a,
+header nav ul li a:visited {
+    color: #333;
+    font-weight: bold;
     padding: 1em;
 }
 
