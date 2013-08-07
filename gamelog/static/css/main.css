@@ -172,11 +172,12 @@ legend {
 }
 
 table {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
     width: 100%;
 }
 
 table th, table td {
-    border: 1px solid #ccc;
+    border: 1px solid #aaa;
     padding: 0.5em;
 }
 
