@@ -12,7 +12,7 @@ from ratings.models import GamePlayerRating
 
 from .models import Game, GamePlay, PlayerRank
 from .forms import GamePlayForm, GamePlayFromGameForm, GamePlayFromCoopGameForm, PlayerRankForm, PlayerRankCoopGameForm, PlayerRankFormset
-from .tables import GameTable
+from .tables import GameTable, GameLeaderboardTable
 
 
 class GameCreateView(CreateView):
@@ -30,7 +30,7 @@ class GameDetailView(DetailView):
         ratings = GamePlayerRating.objects.filter(game=game)
         ratings = ratings.order_by('-rating__rating')
         ratings = ratings[:10]
-        ctx['ratings'] = ratings
+        ctx['game_leaderboard_table'] = GameLeaderboardTable(ratings)
 
         recent_plays = GamePlay.objects.filter(game=game)
         recent_plays = recent_plays.order_by('-played_at')

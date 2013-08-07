@@ -9,27 +9,6 @@
     </ul>
 </nav>
 
-<table{% if table.attrs %} {{ table.attrs.as_html }}{% endif %}>
-    <thead>
-        <tr>
-            {% for column in table.columns %}
-            <th>{{ column.header }}</th>
-            {% endfor %}
-        </tr>
-    </thead>
-    <tbody>
-        {% for row in table.page.object_list|default:table.rows %}
-        <tr>
-            {% for column, cell in row.items %}
-            <td>{{ cell }}</td>
-            {% endfor %}
-        </tr>
-        {% empty %}
-        <tr>
-            <td colspan="1000"><em>There are no games. Why don't you <a href="{% url 'game_create' %}">add one</a>?</em></td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+{% include 'includes/_table.html' %}
 
 {% endblock %}
