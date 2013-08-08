@@ -5,6 +5,7 @@ admin.autodiscover()
 
 
 urlpatterns = patterns('',
+    url(r'', include('auth.urls')),
     url(r'^games/', include('games.urls')),
     url(r'^players/', include('players.urls')),
     url(r'^groups/', include('groups.urls')),
