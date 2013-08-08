@@ -1,5 +1,6 @@
 from django import forms
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, authenticate
+from django.core.exceptions import ValidationError
 
 
 class SignUpForm(forms.ModelForm):
@@ -26,3 +27,11 @@ class SignUpForm(forms.ModelForm):
         if not data['password'] == data['confirm_password']:
             self._errors['confirm_password'] = (u'Passwords do not match', )
         return super(SignUpForm, self).clean(*args, **kwargs)
+
+    def save(self, *args, **kwargs):
+        user = super(SignUpForm, self).save(commit=False)
+
+        user.set_password(self.cleaned_data['password'])
+        user.save()
+
+        return user
