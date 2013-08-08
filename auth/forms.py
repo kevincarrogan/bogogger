@@ -10,7 +10,7 @@ class SignUpForm(forms.ModelForm):
 
     class Meta:
         model = get_user_model()
-        fields = ('username', 'email', 'password',)
+        fields = ('username', 'email', 'password', 'confirm_password', 'first_name', 'last_name',)
 
     def __init__(self, *args, **kwargs):
         super(SignUpForm, self).__init__(*args, **kwargs)
