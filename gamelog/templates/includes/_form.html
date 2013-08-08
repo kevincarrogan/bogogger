@@ -1,9 +1,17 @@
 <form class="base-form" method="POST">
     {% csrf_token %}
+    {% if form.non_field_errors %}
+    <ul class="error-list">
+        {% for error in form.non_field_errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
     
     {% include 'includes/_fieldset.html' %}
 
     <div class="actions">
+        {% block actions %}
         <button type="submit">
             {% if object %}
             Save
@@ -11,5 +19,6 @@
             Create New
             {% endif %}
         </button>
+        {% endblock %}
     </div>
 </form>

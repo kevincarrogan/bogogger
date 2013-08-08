@@ -35,3 +35,31 @@ class SignUpForm(forms.ModelForm):
         user.save()
 
         return user
+
+
+class SignInForm(forms.Form):
+    email_or_username = forms.CharField(required=True)
+    password = forms.CharField(
+        required=True,
+        widget=forms.PasswordInput
+    )
+
+    def clean(self, *args, **kwargs):
+        data = self.data
+        email_or_username = data['email_or_username']
+        User = get_user_model()
+
+        try:
+            if '@' in email_or_username:
+                user = User.objects.get(email=email_or_username)
+            else:
+                user = User.objects.get(username=email_or_username)
+            user = authenticate(username=user.username, password=data['password'])
+            if not user:
+                raise ValidationError(u'Username/email or password incorrect')
+        except User.DoesNotExist:
+            raise ValidationError(u'Username/email or password incorrect')
+
+        self.cleaned_data['user'] = user
+
+        return super(SignInForm, self).clean(*args, **kwargs)

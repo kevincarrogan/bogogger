@@ -235,6 +235,10 @@ td ul {
     text-align: center;
 }
 
+form > .error-list {
+    padding: 0;
+}
+
 .error-list {
     color: #f00;
     list-style: none;
