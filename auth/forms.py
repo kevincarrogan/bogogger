@@ -55,7 +55,7 @@ class SignInForm(forms.Form):
             else:
                 user = User.objects.get(username=email_or_username)
             user = authenticate(username=user.username, password=data['password'])
-            if not user:
+            if not user or not user.is_active:
                 raise ValidationError(u'Username/email or password incorrect')
         except User.DoesNotExist:
             raise ValidationError(u'Username/email or password incorrect')
