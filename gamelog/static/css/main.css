@@ -102,7 +102,7 @@ button {
     padding: 0.5em 1em;
 }
 
-input {
+input, select {
     padding: 0.5em;
 }
 
@@ -154,8 +154,9 @@ main > h1 {
 }
 
 main > nav {
-    background-color: #fcfcfc;
-    border: 1px solid #eee;
+    background-color: #fafafa;
+    border: 1px solid #ccc;
+    border-radius: 2px;
     box-sizing: border-box;
     margin: 0;
     margin-bottom: 1.34em;
