@@ -81,5 +81,5 @@ class Player(models.Model):
 def create_player_from_user(sender, instance, created, **kwargs):
     if created:
         Player.objects.create(
-            user=user,
+            user=instance,
         )
