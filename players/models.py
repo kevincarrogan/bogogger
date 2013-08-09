@@ -78,9 +78,8 @@ class Player(models.Model):
 
 
 @receiver(post_save, sender=get_user_model())
-def create_player_from_user(sender, **kwargs):
-    user = kwargs['instance']
-
-    Player.objects.create(
-        user=user,
-    )
+def create_player_from_user(sender, instance, created, **kwargs):
+    if created:
+        Player.objects.create(
+            user=user,
+        )
