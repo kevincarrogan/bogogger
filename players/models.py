@@ -12,6 +12,7 @@ class Player(models.Model):
     user = models.ForeignKey(get_user_model(), blank=True, null=True)
     slug = AutoSlugField(
         populate_from='fullname',
+        unique=True,
     )
 
     # Fields if this isn't tied to a user
