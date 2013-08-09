@@ -3,4 +3,7 @@
 {% block content %}
 <h1>Sign In</h1>
 {% include 'authorisation/_user_form.html' %}
+<p>
+    Not registered? <a href="{% url 'sign_up' %}">Sign up</a>!
+</p>
 {% endblock %}

@@ -9,6 +9,9 @@ class SignUpView(CreateView):
     model = get_user_model()
     form_class = SignUpForm
 
+    def get_success_url(self):
+        return reverse('dashboard')
+
 
 class SignInView(FormView):
     form_class = SignInForm
