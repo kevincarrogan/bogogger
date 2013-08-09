@@ -1,4 +1,4 @@
-from django.contrib.auth import get_user_model, login
+from django.contrib.auth import get_user_model, login, authenticate
 from django.views.generic.edit import CreateView, FormView
 from django.core.urlresolvers import reverse
 
@@ -11,6 +11,17 @@ class SignUpView(CreateView):
 
     def get_success_url(self):
         return reverse('dashboard')
+
+    def form_valid(self, form):
+        user = form.instance
+        data = form.cleaned_data
+
+        resp = super(SignUpView, self).form_valid(form)
+
+        authed_user = authenticate(username=user.username, password=data['password'])
+        login(self.request, authed_user)
+
+        return resp
 
 
 class SignInView(FormView):

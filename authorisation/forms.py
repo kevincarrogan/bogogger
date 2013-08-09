@@ -32,6 +32,7 @@ class SignUpForm(forms.ModelForm):
         user = super(SignUpForm, self).save(commit=False)
 
         user.set_password(self.cleaned_data['password'])
+        user.is_active = True
         user.save()
 
         return user
