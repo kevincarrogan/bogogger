@@ -2,6 +2,8 @@ from django.views.generic.edit import CreateView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 
+from braces.views import LoginRequiredMixin
+
 from games.models import GamePlay
 
 from ratings.models import GamePlayerRating
@@ -9,11 +11,11 @@ from ratings.models import GamePlayerRating
 from .models import Player
 
 
-class PlayerCreateView(CreateView):
+class PlayerCreateView(LoginRequiredMixin, CreateView):
     model = Player
 
 
-class PlayerDetailView(DetailView):
+class PlayerDetailView(LoginRequiredMixin, DetailView):
     model = Player
 
     def get_context_data(self, *args, **kwargs):
@@ -28,5 +30,5 @@ class PlayerDetailView(DetailView):
         return ctx
 
 
-class PlayerListView(ListView):
+class PlayerListView(LoginRequiredMixin, ListView):
     model = Player

@@ -7,6 +7,8 @@ from django.views.generic.base import TemplateView
 from django.forms.models import inlineformset_factory
 from django.shortcuts import redirect
 
+from braces.views import LoginRequiredMixin
+
 from players.models import Player
 from ratings.models import GamePlayerRating
 
@@ -15,11 +17,11 @@ from .forms import GamePlayForm, GamePlayFromGameForm, GamePlayFromCoopGameForm,
 from .tables import GameTable, GameLeaderboardTable, GamePlayTable
 
 
-class GameCreateView(CreateView):
+class GameCreateView(LoginRequiredMixin, CreateView):
     model = Game
 
 
-class GameDetailView(DetailView):
+class GameDetailView(LoginRequiredMixin, DetailView):
     model = Game
 
     def get_context_data(self, object):
@@ -40,7 +42,7 @@ class GameDetailView(DetailView):
         return ctx
 
 
-class GameListView(ListView):
+class GameListView(LoginRequiredMixin, ListView):
     model = Game
 
     def get_context_data(self, *args, **kwargs):
@@ -51,11 +53,11 @@ class GameListView(ListView):
         return ctx
 
 
-class GameUpdateView(UpdateView):
+class GameUpdateView(LoginRequiredMixin, UpdateView):
     model = Game
 
 
-class GamePlayCreateView(TemplateView):
+class GamePlayCreateView(LoginRequiredMixin, TemplateView):
     template_name = 'games/gameplay_form.html'
 
     def get_formset(self, instance=None, data=None):
@@ -119,7 +121,7 @@ class GamePlayCreateView(TemplateView):
         return ctx
 
 
-class GamePlayCreateFromGameView(BaseDetailView, TemplateView):
+class GamePlayCreateFromGameView(LoginRequiredMixin, BaseDetailView, TemplateView):
     model = Game
     template_name = 'games/gameplay_from_game_form.html'
 
@@ -215,7 +217,7 @@ class GamePlayCreateFromGameView(BaseDetailView, TemplateView):
         return ctx
 
 
-class GamePlayUpdateView(TemplateView):
+class GamePlayUpdateView(LoginRequiredMixin, TemplateView):
     template_name = 'games/gameplay_form.html'
 
     def get_formset(self, instance, data=None):
@@ -282,11 +284,11 @@ class GamePlayUpdateView(TemplateView):
         return ctx
 
 
-class GamePlayDetailView(DetailView):
+class GamePlayDetailView(LoginRequiredMixin, DetailView):
     model = GamePlay
 
 
-class GamePlayListView(ListView):
+class GamePlayListView(LoginRequiredMixin, ListView):
     model = GamePlay
 
     def get_context_data(self, *args, **kwargs):
