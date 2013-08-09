@@ -12,7 +12,7 @@ class SignUpView(CreateView):
 
 class SignInView(FormView):
     form_class = SignInForm
-    template_name = 'auth/signin_form.html'
+    template_name = 'authorisation/signin_form.html'
 
     def form_valid(self, form):
         login(self.request, form.cleaned_data['user'])

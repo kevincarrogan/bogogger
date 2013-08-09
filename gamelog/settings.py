@@ -144,11 +144,13 @@ INSTALLED_APPS = (
     'players',
     'groups',
     'ratings',
-    'auth',
+    'authorisation',
 
     'django_tables2',
     'south',
 )
+
+AUTH_USER_MODEL = 'authorisation.User'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
