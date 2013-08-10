@@ -23,7 +23,7 @@
     {% for game_play in recently_played %}
     <article>
         <h1>{{ game_play.game }}</h1>
-        <time>{{ game_play.played_at|date:'c' }}</time>
+        <time>{{ game_play.played_at|date:'DATETIME_FORMAT' }}</time>
 
         <ul>
             {% for player in game_play.players.all %}
