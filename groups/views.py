@@ -4,7 +4,10 @@ from django.views.generic.list import ListView
 
 from braces.views import LoginRequiredMixin
 
+from players.models import Player
+
 from .models import PlayerGroup, GroupGamePlayerRating
+from .forms import PlayerGroupPlayerForm
 
 
 class PlayerGroupCreateView(LoginRequiredMixin, CreateView):
@@ -33,3 +36,15 @@ class PlayerGroupDetailView(LoginRequiredMixin, DetailView):
 
 class PlayerGroupListView(LoginRequiredMixin, ListView):
     model = PlayerGroup
+
+
+class PlayerGroupPlayerAddView(LoginRequiredMixin, CreateView):
+    model = Player
+    form_class = PlayerGroupPlayerForm
+
+    def get_form_kwargs(self):
+        kwargs = super(PlayerGroupPlayerAddView, self).get_form_kwargs()
+        group_slug = self.kwargs['slug']
+        group = PlayerGroup.objects.get(slug=group_slug)
+        kwargs['group'] = group
+        return kwargs
