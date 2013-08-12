@@ -170,6 +170,15 @@ fieldset {
     margin-bottom: 2em;
 }
 
+form fieldset:last-of-type {
+    margin-bottom: 0;
+}
+
+form fieldset + .actions {
+    border-top: none;
+    padding-left: 10.8em
+}
+
 .form-field {
     margin-bottom: 1em;
 }
