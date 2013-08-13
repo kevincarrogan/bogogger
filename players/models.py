@@ -25,6 +25,11 @@ class Player(models.Model):
         verbose_name='Last name',
     )
 
+    class Meta:
+        permissions = (
+            ('view_all_players', 'View all players',),
+        )
+
     @property
     def fullname(self):
         if self.first_name and self.last_name:
