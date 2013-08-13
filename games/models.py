@@ -38,6 +38,11 @@ class GamePlay(models.Model):
     # This is only relevant for co-op games (at the moment)
     win = models.NullBooleanField()
 
+    class Meta:
+        permissions = (
+            ('view_plays', 'View plays list',),
+        )
+
     def get_absolute_url(self):
         return reverse('game_play_detail', args=(), kwargs={'pk': self.pk})
 
