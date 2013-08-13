@@ -289,8 +289,9 @@ class GamePlayDetailView(LoginRequiredMixin, DetailView):
     model = GamePlay
 
 
-class GamePlayListView(LoginRequiredMixin, ListView):
+class GamePlayListView(PermissionRequiredMixin, LoginRequiredMixin, ListView):
     model = GamePlay
+    permission_required = 'games.view_plays'
 
     def get_context_data(self, *args, **kwargs):
         ctx = super(GamePlayListView, self).get_context_data(*args, **kwargs)
