@@ -40,6 +40,6 @@ class PlayerListView(LoginRequiredMixin, ListView):
 
         if not user.has_perm('view_all_players'):
             player = user.player_set.all()[0]
-            queryset = queryset.filter(playergroup__players=player)
+            queryset = queryset.filter(playergroup__players=player).distinct()
 
         return queryset
