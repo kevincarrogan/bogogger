@@ -2,7 +2,7 @@ from django.views.generic.edit import CreateView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 
-from braces.views import LoginRequiredMixin
+from braces.views import LoginRequiredMixin, PermissionRequiredMixin
 
 from games.models import GamePlay
 
@@ -11,8 +11,9 @@ from ratings.models import GamePlayerRating
 from .models import Player
 
 
-class PlayerCreateView(LoginRequiredMixin, CreateView):
+class PlayerCreateView(PermissionRequiredMixin, LoginRequiredMixin, CreateView):
     model = Player
+    permission_required = 'players.add_player'
 
 
 class PlayerDetailView(LoginRequiredMixin, DetailView):
