@@ -11,6 +11,11 @@ class Game(models.Model):
     max_players = models.PositiveIntegerField()
     is_coop = models.BooleanField(default=False, verbose_name="Co-operative")
 
+    class Meta:
+        permissions = (
+            ('view_games', 'View game list',),
+        )
+
     def get_absolute_url(self):
         return reverse('game_detail', args=(), kwargs={'slug': self.slug})
 

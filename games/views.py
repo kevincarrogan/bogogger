@@ -7,7 +7,7 @@ from django.views.generic.base import TemplateView
 from django.forms.models import inlineformset_factory
 from django.shortcuts import redirect
 
-from braces.views import LoginRequiredMixin
+from braces.views import LoginRequiredMixin, PermissionRequiredMixin
 
 from players.models import Player
 from ratings.models import GamePlayerRating
@@ -42,8 +42,9 @@ class GameDetailView(LoginRequiredMixin, DetailView):
         return ctx
 
 
-class GameListView(LoginRequiredMixin, ListView):
+class GameListView(PermissionRequiredMixin, LoginRequiredMixin, ListView):
     model = Game
+    permission_required = 'games.view_games'
 
     def get_context_data(self, *args, **kwargs):
         ctx = super(GameListView, self).get_context_data(*args, **kwargs)
