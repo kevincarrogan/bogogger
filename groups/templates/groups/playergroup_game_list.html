@@ -1,0 +1,9 @@
+{% extends 'games/game_list.html' %}
+
+{% block nav %}
+<nav>
+    <ul>
+        <li><a href="{% url 'player_group_game_create' slug=group.slug %}">Add A Game</a></li>
+    </ul>
+</nav>
+{% endblock %}

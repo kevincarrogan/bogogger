@@ -42,16 +42,19 @@ class GameDetailView(LoginRequiredMixin, DetailView):
         return ctx
 
 
-class GameListView(PermissionRequiredMixin, LoginRequiredMixin, ListView):
+class BaseGameListView(LoginRequiredMixin, ListView):
     model = Game
-    permission_required = 'games.view_games'
 
     def get_context_data(self, *args, **kwargs):
-        ctx = super(GameListView, self).get_context_data(*args, **kwargs)
+        ctx = super(BaseGameListView, self).get_context_data(*args, **kwargs)
 
         ctx['table'] = GameTable(self.get_queryset())
 
         return ctx
+
+
+class GameListView(PermissionRequiredMixin, BaseGameListView):
+    permission_required = 'games.view_games'
 
 
 class GameUpdateView(LoginRequiredMixin, UpdateView):

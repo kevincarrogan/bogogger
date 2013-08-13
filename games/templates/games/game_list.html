@@ -3,11 +3,13 @@
 {% block content %}
 <h1>Games</h1>
 
+{% block nav %}
 <nav>
     <ul>
         <li><a href="{% url 'game_create' %}">Add A Game</a></li>
     </ul>
 </nav>
+{% endblock %}
 
 {% include 'includes/_table.html' %}
 

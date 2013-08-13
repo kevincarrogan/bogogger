@@ -6,6 +6,8 @@ from braces.views import LoginRequiredMixin
 
 from players.models import Player
 
+from games.views import BaseGameListView, GameCreateView
+
 from .models import PlayerGroup, GroupGamePlayerRating
 from .forms import PlayerGroupPlayerForm
 
@@ -48,3 +50,40 @@ class PlayerGroupPlayerAddView(LoginRequiredMixin, CreateView):
         group = PlayerGroup.objects.get(slug=group_slug)
         kwargs['group'] = group
         return kwargs
+
+
+class PlayerGroupGameListView(BaseGameListView):
+    template_name = 'groups/playergroup_game_list.html'
+
+    def get_object(self):
+        return PlayerGroup.objects.get(slug=self.kwargs['slug'])
+
+    def get_queryset(self):
+        queryset = super(PlayerGroupGameListView, self).get_queryset()
+
+        player_group = self.get_object()
+        queryset = queryset.filter(playergroup=player_group)
+
+        return queryset
+
+    def get_context_data(self, *args, **kwargs):
+        ctx = super(PlayerGroupGameListView, self).get_context_data(*args, **kwargs)
+
+        ctx['group'] = self.get_object()
+
+        return ctx
+
+
+class PlayerGroupGameCreateView(GameCreateView):
+    template_name = 'groups/playergroup_game_create.html'
+
+    def get_object(self):
+        return PlayerGroup.objects.get(slug=self.kwargs['slug'])
+
+    def form_valid(self, form):
+        resp = super(PlayerGroupGameCreateView, self).form_valid(form)
+
+        player_group = self.get_object()
+        player_group.games.add(form.instance)
+
+        return resp
