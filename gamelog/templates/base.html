@@ -24,9 +24,7 @@
             </h1>
             <nav class="clearfix">
                 <ul>
-                    {% if 'view_games' in perms %}
                     <li><a href="{% url 'game_list' %}">Games</a></li>
-                    {% endif %}
                     {% if 'view_plays' in perms %}
                     <li><a href="{% url 'game_play_list' %}">Plays</a></li>
                     {% endif %}

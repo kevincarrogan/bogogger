@@ -14,6 +14,7 @@ class Game(models.Model):
     class Meta:
         permissions = (
             ('view_games', 'View game list',),
+            ('view_all_games', 'View all games',),
         )
 
     def get_absolute_url(self):

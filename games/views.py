@@ -53,8 +53,18 @@ class BaseGameListView(LoginRequiredMixin, ListView):
         return ctx
 
 
-class GameListView(PermissionRequiredMixin, BaseGameListView):
-    permission_required = 'games.view_games'
+class GameListView(BaseGameListView):
+
+    def get_queryset(self):
+        queryset = super(GameListView, self).get_queryset()
+
+        user = self.request.user
+
+        if not user.has_perm('view_all_games'):
+            player = user.player_set.all()[0]
+            queryset = queryset.filter(playergroup__players=player).distinct()
+
+        return queryset
 
 
 class GameUpdateView(LoginRequiredMixin, UpdateView):
