@@ -25,17 +25,24 @@ class GameDetailView(LoginRequiredMixin, DetailView):
     model = Game
 
     def get_context_data(self, object):
+        user = self.request.user
+        player = user.player_set.all()[0]
+
         ctx = super(GameDetailView, self).get_context_data()
 
         game = self.get_object()
 
         ratings = GamePlayerRating.objects.filter(game=game)
+        if not user.has_perm('view_all_games'):
+            ratings = ratings.filter(player__playergroup__players=player).distinct()
         ratings = ratings.order_by('-rating__rating')
         ratings = ratings[:10]
         ctx['game_leaderboard_table'] = GameLeaderboardTable(ratings)
 
         recent_plays = GamePlay.objects.filter(game=game)
         recent_plays = recent_plays.order_by('-played_at')
+        if not user.has_perm('view_all_games'):
+            recent_plays.filter(grouprating__group__players=player).distinct()
         recent_plays = recent_plays[:10]
         ctx['recent_plays'] = recent_plays
 
