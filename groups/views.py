@@ -1,6 +1,7 @@
 from django.views.generic.edit import CreateView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
+from django.core.urlresolvers import reverse
 
 from braces.views import LoginRequiredMixin
 
@@ -8,8 +9,8 @@ from players.models import Player
 
 from games.views import BaseGameListView, GameCreateView
 
-from .models import PlayerGroup, GroupGamePlayerRating
-from .forms import PlayerGroupPlayerForm
+from .models import PlayerGroup, GroupGamePlayerRating, PlayerGroupInvite
+from .forms import PlayerGroupPlayerForm, PlayerGroupInviteForm
 
 
 class PlayerGroupCreateView(LoginRequiredMixin, CreateView):
@@ -87,3 +88,21 @@ class PlayerGroupGameCreateView(GameCreateView):
         player_group.games.add(form.instance)
 
         return resp
+
+
+class PlayerGroupPlayerInviteView(LoginRequiredMixin, CreateView):
+    model = PlayerGroupInvite
+    form_class = PlayerGroupInviteForm
+
+    def get_form_kwargs(self):
+        kwargs = super(PlayerGroupPlayerInviteView, self).get_form_kwargs()
+
+        kwargs['group'] = self.get_object()
+
+        return kwargs
+
+    def get_object(self):
+        return PlayerGroup.objects.get(slug=self.kwargs['slug'])
+
+    def get_success_url(self):
+        return reverse('player_list')

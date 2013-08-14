@@ -10,6 +10,7 @@ urlpatterns = patterns('',
     url(r'^(?P<slug>.+)/games/create/$', views.PlayerGroupGameCreateView.as_view(), name='player_group_game_create'),
 
     url(r'^(?P<slug>.+)/players/add/$', views.PlayerGroupPlayerAddView.as_view(), name='player_group_player_add'),
+    url(r'^(?P<slug>.+)/players/invite/$', views.PlayerGroupPlayerInviteView.as_view(), name='player_group_invite'),
 
     url(r'(?P<slug>.+)/$', views.PlayerGroupDetailView.as_view(), name='player_group_detail'),
 )
