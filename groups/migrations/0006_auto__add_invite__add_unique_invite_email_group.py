@@ -13,6 +13,7 @@ class Migration(SchemaMigration):
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('email', self.gf('django.db.models.fields.EmailField')(max_length=75)),
             ('group', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['groups.PlayerGroup'])),
+            ('hash', self.gf('django.db.models.fields.CharField')(max_length=255)),
         ))
         db.send_create_signal(u'groups', ['Invite'])
 
@@ -110,6 +111,7 @@ class Migration(SchemaMigration):
             'Meta': {'unique_together': "(('email', 'group'),)", 'object_name': 'Invite'},
             'email': ('django.db.models.fields.EmailField', [], {'max_length': '75'}),
             'group': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['groups.PlayerGroup']"}),
+            'hash': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
         },
         u'groups.playergroup': {

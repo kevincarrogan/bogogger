@@ -75,6 +75,7 @@ class Invite(models.Model):
 
     email = models.EmailField()
     group = models.ForeignKey(PlayerGroup)
+    hash = models.CharField(max_length=255)
 
     class Meta:
         unique_together = ('email', 'group',)
