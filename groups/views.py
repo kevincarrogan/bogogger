@@ -2,6 +2,7 @@ from django.views.generic.edit import CreateView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.core.urlresolvers import reverse
+from django.core.mail import EmailMessage
 
 from braces.views import LoginRequiredMixin
 
@@ -53,7 +54,7 @@ class PlayerGroupPlayerAddView(LoginRequiredMixin, CreateView):
         return kwargs
 
 
-class PlayerGroupGameListView(LoginRequiredMixin, BaseGameListView):
+class PlayerGroupGameListView(BaseGameListView):
     template_name = 'groups/playergroup_game_list.html'
 
     def get_object(self):
@@ -75,7 +76,7 @@ class PlayerGroupGameListView(LoginRequiredMixin, BaseGameListView):
         return ctx
 
 
-class PlayerGroupGameCreateView(LoginRequiredMixin, GameCreateView):
+class PlayerGroupGameCreateView(GameCreateView):
     template_name = 'groups/playergroup_game_create.html'
 
     def get_object(self):
