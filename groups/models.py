@@ -69,3 +69,15 @@ class GroupGamePlayerRating(models.Model):
 
     def __unicode__(self):
         return u'%s' % self.rating
+
+
+class Invite(models.Model):
+
+    email = models.EmailField()
+    group = models.ForeignKey(PlayerGroup)
+
+    class Meta:
+        unique_together = ('email', 'group',)
+
+    def __unicode__(self):
+        return u'%s - %s' % (self.email, self.group,)
