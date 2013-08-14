@@ -53,7 +53,7 @@ class PlayerGroupPlayerAddView(LoginRequiredMixin, CreateView):
         return kwargs
 
 
-class PlayerGroupGameListView(BaseGameListView):
+class PlayerGroupGameListView(LoginRequiredMixin, BaseGameListView):
     template_name = 'groups/playergroup_game_list.html'
 
     def get_object(self):
@@ -75,7 +75,7 @@ class PlayerGroupGameListView(BaseGameListView):
         return ctx
 
 
-class PlayerGroupGameCreateView(GameCreateView):
+class PlayerGroupGameCreateView(LoginRequiredMixin, GameCreateView):
     template_name = 'groups/playergroup_game_create.html'
 
     def get_object(self):
