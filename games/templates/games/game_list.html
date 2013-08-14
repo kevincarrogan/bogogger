@@ -4,11 +4,13 @@
 <h1>Games</h1>
 
 {% block nav %}
+{% if 'add_game' in perms %}
 <nav>
     <ul>
         <li><a href="{% url 'game_create' %}">Add A Game</a></li>
     </ul>
 </nav>
+{% endif %}
 {% endblock %}
 
 {% include 'includes/_table.html' %}
