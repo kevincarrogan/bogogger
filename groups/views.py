@@ -144,6 +144,18 @@ class PlayerGroupPlayerInviteAcceptView(SignUpView):
 
         return super(PlayerGroupPlayerInviteAcceptView, self).get(request)
 
+    def get_form_kwargs(self):
+        kwargs = super(PlayerGroupPlayerInviteAcceptView, self).get_form_kwargs()
+
+        invite = PlayerGroupInvite.objects.get(
+            group__slug=self.kwargs['slug'],
+            hash=self.kwargs['hash'],
+        )
+
+        kwargs['initial']['email'] = invite.email
+
+        return kwargs
+
     def form_valid(self, form):
         resp = super(PlayerGroupPlayerInviteAcceptView, self).form_valid(form)
 
