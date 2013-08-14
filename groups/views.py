@@ -128,6 +128,22 @@ class PlayerGroupPlayerInviteView(LoginRequiredMixin, CreateView):
 
 class PlayerGroupPlayerInviteAcceptView(SignUpView):
 
+    def get(self, request, slug, hash):
+        try:
+            group = PlayerGroup.objects.get(slug=slug)
+        except PlayerGroup.DoesNotExist:
+            raise Http404
+
+        try:
+            invite = PlayerGroupInvite.objects.get(
+                group=group,
+                hash=hash,
+            )
+        except PlayerGroupInvite.DoesNotExist:
+            raise Http404
+
+        return super(PlayerGroupPlayerInviteAcceptView, self).get(request)
+
     def form_valid(self, form):
         resp = super(PlayerGroupPlayerInviteAcceptView, self).form_valid(form)
 
