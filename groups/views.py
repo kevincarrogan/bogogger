@@ -3,12 +3,14 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.core.urlresolvers import reverse
 from django.core.mail import EmailMessage
+from django.http import Http404
 
 from braces.views import LoginRequiredMixin
 
 from players.models import Player
 
 from games.views import BaseGameListView, GameCreateView
+from authorisation.views import SignUpView
 
 from .models import PlayerGroup, GroupGamePlayerRating, PlayerGroupInvite
 from .forms import PlayerGroupPlayerForm, PlayerGroupInviteForm
@@ -107,3 +109,30 @@ class PlayerGroupPlayerInviteView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         return reverse('player_list')
+
+    def form_valid(self, form):
+        resp = super(PlayerGroupPlayerInviteView, self).form_valid(form)
+
+        invite = form.instance
+        email = EmailMessage(
+            'Boggoger: Invite',
+            'You have been invited to join "%s" on bogogger.com.\n\n'
+            'To accept this request visit: http://www.bogogger.com%s' % (invite.group, reverse('player_group_invite_accept', args=(invite.group.slug, invite.hash,))),
+            'info@bogogger.com',
+            [invite.email],
+        )
+        email.send()
+
+        return resp
+
+
+class PlayerGroupPlayerInviteAcceptView(SignUpView):
+
+    def form_valid(self, form):
+        resp = super(PlayerGroupPlayerInviteAcceptView, self).form_valid(form)
+
+        player = form.instance.player_set.all()[0]
+        group = PlayerGroup.objects.get(slug=self.kwargs['slug'])
+        group.players.add(player)
+
+        return resp

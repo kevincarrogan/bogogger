@@ -11,6 +11,7 @@ urlpatterns = patterns('',
 
     url(r'^(?P<slug>.+)/players/add/$', views.PlayerGroupPlayerAddView.as_view(), name='player_group_player_add'),
     url(r'^(?P<slug>.+)/players/invite/$', views.PlayerGroupPlayerInviteView.as_view(), name='player_group_invite'),
+    url(r'^(?P<slug>.+)/players/invite/accept/(?P<hash>.+)/$', views.PlayerGroupPlayerInviteAcceptView.as_view(), name='player_group_invite_accept'),
 
     url(r'(?P<slug>.+)/$', views.PlayerGroupDetailView.as_view(), name='player_group_detail'),
 )

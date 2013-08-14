@@ -184,6 +184,8 @@ LOGGING = {
     }
 }
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 INITIAL_ELO_RATING = 1200
 MINIMUM_ELO_RATING = 200
 ELO_K_VALUE = 20
