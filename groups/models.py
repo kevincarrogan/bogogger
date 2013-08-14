@@ -71,7 +71,7 @@ class GroupGamePlayerRating(models.Model):
         return u'%s' % self.rating
 
 
-class Invite(models.Model):
+class PlayerGroupInvite(models.Model):
 
     email = models.EmailField()
     group = models.ForeignKey(PlayerGroup)

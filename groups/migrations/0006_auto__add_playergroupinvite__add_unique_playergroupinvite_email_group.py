@@ -8,25 +8,25 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding model 'Invite'
-        db.create_table(u'groups_invite', (
+        # Adding model 'PlayerGroupInvite'
+        db.create_table(u'groups_playergroupinvite', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('email', self.gf('django.db.models.fields.EmailField')(max_length=75)),
             ('group', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['groups.PlayerGroup'])),
             ('hash', self.gf('django.db.models.fields.CharField')(max_length=255)),
         ))
-        db.send_create_signal(u'groups', ['Invite'])
+        db.send_create_signal(u'groups', ['PlayerGroupInvite'])
 
-        # Adding unique constraint on 'Invite', fields ['email', 'group']
-        db.create_unique(u'groups_invite', ['email', 'group_id'])
+        # Adding unique constraint on 'PlayerGroupInvite', fields ['email', 'group']
+        db.create_unique(u'groups_playergroupinvite', ['email', 'group_id'])
 
 
     def backwards(self, orm):
-        # Removing unique constraint on 'Invite', fields ['email', 'group']
-        db.delete_unique(u'groups_invite', ['email', 'group_id'])
+        # Removing unique constraint on 'PlayerGroupInvite', fields ['email', 'group']
+        db.delete_unique(u'groups_playergroupinvite', ['email', 'group_id'])
 
-        # Deleting model 'Invite'
-        db.delete_table(u'groups_invite')
+        # Deleting model 'PlayerGroupInvite'
+        db.delete_table(u'groups_playergroupinvite')
 
 
     models = {
@@ -107,13 +107,6 @@ class Migration(SchemaMigration):
             'player': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['players.Player']"}),
             'rating': ('django.db.models.fields.PositiveIntegerField', [], {})
         },
-        u'groups.invite': {
-            'Meta': {'unique_together': "(('email', 'group'),)", 'object_name': 'Invite'},
-            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75'}),
-            'group': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['groups.PlayerGroup']"}),
-            'hash': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
-        },
         u'groups.playergroup': {
             'Meta': {'object_name': 'PlayerGroup'},
             'games': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['games.Game']", 'symmetrical': 'False'}),
@@ -121,6 +114,13 @@ class Migration(SchemaMigration):
             'name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'players': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['players.Player']", 'symmetrical': 'False'}),
             'slug': ('autoslug.fields.AutoSlugField', [], {'unique_with': '()', 'max_length': '50', 'populate_from': "'name'"})
+        },
+        u'groups.playergroupinvite': {
+            'Meta': {'unique_together': "(('email', 'group'),)", 'object_name': 'PlayerGroupInvite'},
+            'email': ('django.db.models.fields.EmailField', [], {'max_length': '75'}),
+            'group': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['groups.PlayerGroup']"}),
+            'hash': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
         },
         u'players.player': {
             'Meta': {'object_name': 'Player'},
