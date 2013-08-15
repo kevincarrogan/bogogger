@@ -170,11 +170,11 @@ fieldset {
     margin-bottom: 2em;
 }
 
-form fieldset:last-of-type {
+.base-form fieldset:last-of-type {
     margin-bottom: 0;
 }
 
-form fieldset + .actions {
+.base-form fieldset + .actions {
     border-top: none;
     padding-left: 10.8em
 }
@@ -196,17 +196,17 @@ form fieldset + .actions {
     width: 9em;
 }
 
-form {
+.base-form {
     border: 1px solid #aaa;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
     padding: 2em;
 }
 
-form .form-field:last-of-type {
+.base-form .form-field:last-of-type {
     margin-bottom: 0;
 }
 
-form .actions {
+.base-form .actions {
     border-top: 1px solid #ccc;
     padding-left: 10em;
     padding-top: 1em;
@@ -245,7 +245,7 @@ td ul {
     text-align: center;
 }
 
-form > .error-list {
+.base-form > .error-list {
     padding: 0;
 }
 
@@ -253,6 +253,22 @@ form > .error-list {
     color: #f00;
     list-style: none;
     margin-left: 8em;
+}
+
+.sign-out-form {
+    float: right;
+    margin: 0.67em 0;
+    padding: 0 1em;
+}
+
+.sign-out-form button {
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sign-out-form button:hover {
+    text-decoration: underline;
 }
 
 /* ==========================================================================

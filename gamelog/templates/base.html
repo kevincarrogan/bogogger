@@ -32,6 +32,13 @@
                     <li><a href="{% url 'player_group_list' %}">Groups</a></li>
                 </ul>
             </nav>
+
+            {% if user.is_authenticated %}
+            <form class="sign-out-form" action="{% url 'sign_out' %}" method="POST">
+                {% csrf_token %}
+                <button type="submit">Sign Out</button>
+            </form>
+            {% endif %}
         </header>
 
         <main>
