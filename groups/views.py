@@ -13,11 +13,22 @@ from games.views import BaseGameListView, GameCreateView
 from authorisation.views import SignUpView
 
 from .models import PlayerGroup, GroupGamePlayerRating, PlayerGroupInvite
-from .forms import PlayerGroupPlayerForm, PlayerGroupInviteForm
+from .forms import PlayerGroupForm, PlayerGroupPlayerForm, PlayerGroupInviteForm
 
 
 class PlayerGroupCreateView(LoginRequiredMixin, CreateView):
     model = PlayerGroup
+    form_class = PlayerGroupForm
+
+    def form_valid(self, form):
+        resp = super(PlayerGroupCreateView, self).form_valid(form)
+
+        player = self.request.user.player_set.all()[0]
+        player_group = form.instance
+
+        player_group.players.add(player)
+
+        return resp
 
 
 class PlayerGroupDetailView(LoginRequiredMixin, DetailView):

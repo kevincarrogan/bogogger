@@ -4,7 +4,14 @@ from django import forms
 
 from players.models import Player
 
-from .models import PlayerGroupInvite
+from .models import PlayerGroup, PlayerGroupInvite
+
+
+class PlayerGroupForm(forms.ModelForm):
+
+    class Meta:
+        model = PlayerGroup
+        fields = ('name',)
 
 
 class PlayerGroupPlayerForm(forms.ModelForm):
