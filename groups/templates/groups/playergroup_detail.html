@@ -27,6 +27,8 @@
     </ul>
 </section>
 
+{% if playergroup.games.all %}
+
 <section>
     <h1>Leaderboards</h1>
 
@@ -59,5 +61,7 @@
 
     {% endfor %}
 </section>
+
+{% endif %}
 
 {% endblock %}
