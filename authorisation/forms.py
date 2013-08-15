@@ -64,3 +64,7 @@ class SignInForm(forms.Form):
         self.cleaned_data['user'] = user
 
         return super(SignInForm, self).clean(*args, **kwargs)
+
+
+class SignOutForm(forms.Form):
+    pass

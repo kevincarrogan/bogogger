@@ -1,8 +1,9 @@
 from django.contrib.auth import get_user_model, login, authenticate
 from django.views.generic.edit import CreateView, FormView
 from django.core.urlresolvers import reverse
+from django.contrib.auth import logout
 
-from .forms import SignUpForm, SignInForm
+from .forms import SignUpForm, SignInForm, SignOutForm
 
 
 class SignUpView(CreateView):
@@ -34,3 +35,16 @@ class SignInView(FormView):
 
     def get_success_url(self):
         return reverse('dashboard')
+
+
+class SignOutView(FormView):
+    form_class = SignOutForm
+    template_name = 'authorisation/signout_form.html'
+
+    def form_valid(self, form):
+        logout(self.request)
+        return super(SignOutView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse('dashboard')
+

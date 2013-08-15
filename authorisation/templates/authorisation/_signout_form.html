@@ -1,0 +1,8 @@
+{% extends 'includes/_form.html' %}
+
+{% block actions %}
+<button type="submit">
+    Sign Out
+</button>
+<a href="{% url 'dashboard' %}">Cancel</a>
+{% endblock %}
