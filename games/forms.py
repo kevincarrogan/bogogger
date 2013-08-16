@@ -13,6 +13,15 @@ class GamePlayForm(forms.ModelForm):
         model = GamePlay
         fields = ('game', 'played_at',)
 
+    def __init__(self, *args, **kwargs):
+        player = kwargs.pop('player')
+
+        super(GamePlayForm, self).__init__(*args, **kwargs)
+
+        queryset = self.fields['game'].queryset
+        queryset = queryset.filter(playergroup__players=player)
+        self.fields['game'].queryset = queryset
+
 
 class GamePlayFromGameForm(forms.ModelForm):
     played_at = forms.SplitDateTimeField()

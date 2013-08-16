@@ -110,6 +110,8 @@ class GamePlayCreateView(LoginRequiredMixin, TemplateView):
             args = (data,)
         if instance:
             kwargs = {'instance': instance}
+        player = self.request.user.player_set.all()[0]
+        kwargs['player'] = player
         return GamePlayForm(*args, **kwargs)
 
     def post(self, request):
