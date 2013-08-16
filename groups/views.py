@@ -54,6 +54,15 @@ class PlayerGroupDetailView(LoginRequiredMixin, DetailView):
 class PlayerGroupListView(LoginRequiredMixin, ListView):
     model = PlayerGroup
 
+    def get_queryset(self):
+        queryset = super(PlayerGroupListView, self).get_queryset()
+
+        player = self.request.user.player_set.all()[0]
+
+        queryset = queryset.filter(players=player)
+
+        return queryset
+
 
 class PlayerGroupPlayerAddView(LoginRequiredMixin, CreateView):
     model = Player
