@@ -147,6 +147,7 @@ INSTALLED_APPS = (
     'authorisation',
     'dashboard',
 
+    'raven.contrib.django.raven_compat',
     'django_tables2',
     'south',
 )
