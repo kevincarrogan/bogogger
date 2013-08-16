@@ -15,7 +15,11 @@
         </tr>
         {% empty %}
         <tr>
-            <td colspan="1000"><em>There are currently no {{ table.model_verbose_plural_name }}.{% if table.new_model_url %} Why don't you <a href="{{ table.new_model_url }}">add one</a>?{% endif %}</em></td>
+            <td colspan="1000">
+                {% block no_objects %}
+                <em>There are currently no {{ table.model_verbose_plural_name }}.{% if table.new_model_url %} Why don't you <a href="{{ table.new_model_url }}">add one</a>?{% endif %}</em>
+                {% endblock %}
+            </td>
         </tr>
         {% endfor %}
     </tbody>

@@ -1,0 +1,5 @@
+{% extends 'includes/_table.html' %}
+
+{% block no_objects %}
+<em>There are currently no {{ table.model_verbose_plural_name }}. You can add one by adding creating one from one of your <a href="{% url 'player_group_list' %}">groups</a>.</em>
+{% endblock %}
