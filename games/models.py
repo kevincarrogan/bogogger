@@ -6,7 +6,7 @@ from autoslug import AutoSlugField
 
 class Game(models.Model):
     name = models.CharField(max_length=255)
-    slug = AutoSlugField(populate_from='name')
+    slug = AutoSlugField(populate_from='name', unique=True)
     min_players = models.PositiveIntegerField()
     max_players = models.PositiveIntegerField()
     is_coop = models.BooleanField(default=False, verbose_name="Co-operative")
