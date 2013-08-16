@@ -122,6 +122,10 @@ header h1 {
     font-size: 100%;
 }
 
+header h1 sup {
+    margin-left: -1.25em;
+}
+
 nav {
     float: left;
     margin: 0.67em 2em;
