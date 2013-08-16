@@ -123,7 +123,7 @@ class GamePlayCreateView(LoginRequiredMixin, TemplateView):
             game_play = game_play_form.save()
             game_play_formset.save()
 
-            return redirect('game_play_detail', pk=game_play.pk)
+            return redirect('game_detail', slug=game_play.game.slug)
 
         return self.render_to_response(self.get_context_data(form=game_play_form, formset=game_play_formset))
 
@@ -217,7 +217,7 @@ class GamePlayCreateFromGameView(LoginRequiredMixin, BaseDetailView, TemplateVie
             game_play = game_play_form.save()
             game_play_formset.save()
 
-            return redirect('game_play_detail', pk=game_play.pk)
+            return redirect('game_detail', slug=game_play.game.slug)
 
         self.object = self.get_object()
 
@@ -291,7 +291,7 @@ class GamePlayUpdateView(LoginRequiredMixin, TemplateView):
             game_play = game_play_form.save()
             game_play_formset.save()
 
-            return redirect('game_play_detail', pk=game_play.pk)
+            return redirect('game_detail', slug=game_play.game.slug)
 
         return self.render_to_response(self.get_context_data(game_play=game_play, form=game_play_form, formset=game_play_formset))
 
