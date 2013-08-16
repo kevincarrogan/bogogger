@@ -11,6 +11,11 @@ class PlayerGroup(models.Model):
     players = models.ManyToManyField('players.Player')
     games = models.ManyToManyField('games.Game')
 
+    class Meta:
+        permissions = (
+            ('view_all_player_groups', 'View all groups',),
+        )
+
     def get_absolute_url(self):
         return reverse('player_group_detail', args=(), kwargs={'slug': self.slug})
 

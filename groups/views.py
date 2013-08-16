@@ -57,9 +57,10 @@ class PlayerGroupListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         queryset = super(PlayerGroupListView, self).get_queryset()
 
-        player = self.request.user.player_set.all()[0]
-
-        queryset = queryset.filter(players=player)
+        if not user.has_perm('view_all_groups'):
+            user = self.request.user
+            player = user.player_set.all()[0]
+            queryset = queryset.filter(players=player)
 
         return queryset
 
