@@ -106,10 +106,16 @@ class GamePlayCreateView(LoginRequiredMixin, TemplateView):
     def get_form(self, instance=None, data=None):
         args = ()
         kwargs = {}
+
+        now = datetime.datetime.now()
+        just_now = datetime.datetime(now.year, now.month, now.day, now.hour)
+        kwargs['initial'] = {
+            'played_at': just_now,
+        }
         if data:
             args = (data,)
         if instance:
-            kwargs = {'instance': instance}
+            kwargs['instance'] = instance
         player = self.request.user.player_set.all()[0]
         kwargs['player'] = player
         return GamePlayForm(*args, **kwargs)

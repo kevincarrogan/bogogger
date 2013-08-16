@@ -8,6 +8,7 @@ from .models import GamePlay, PlayerRank
 
 
 class GamePlayForm(forms.ModelForm):
+    played_at = forms.SplitDateTimeField()
 
     class Meta:
         model = GamePlay
